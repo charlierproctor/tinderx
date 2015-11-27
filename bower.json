@@ -1,0 +1,16 @@
+{
+  "name": "tinderX",
+  "version": "0.0.0",
+  "authors": [
+    "Charlie Proctor <charlie@charlieproctor.com>"
+  ],
+  "description": "",
+  "main": "app/app.js",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "tinderx.charlieproctor.com",
+  "ignore": [
+    "**/.*",
+    "app/bower_components"
+  ]
+}

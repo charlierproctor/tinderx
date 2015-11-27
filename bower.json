@@ -12,5 +12,8 @@
   "ignore": [
     "**/.*",
     "app/bower_components"
-  ]
+  ],
+  "dependencies": {
+    "angular-easyfb": "~1.4.1"
+  }
 }

@@ -2,9 +2,12 @@
 
 angular.module('tinderX',[
 	'ui.router',
-	'tinderX.login'
+	'tinderX.login',
+	'facebook'
 ]).
 
-config(['$urlRouterProvider', function($urlRouterProvider) {
-	$urlRouterProvider.otherwise("/");
+config(['$urlRouterProvider', 'FacebookProvider', 
+	function($urlRouterProvider, fbProvider) {
+		$urlRouterProvider.otherwise("/");
+		fbProvider.init('1658892404386340')
 }])

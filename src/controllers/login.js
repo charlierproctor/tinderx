@@ -10,6 +10,10 @@ angular.module('tinderX.login', ['ui.router'])
 	})
 }])
 
-.controller('LoginCtrl', ['$scope', function($scope){
-	
+.controller('LoginCtrl', ['$scope', 'Facebook', function($scope, fb){
+	$scope.login = function() {
+		fb.login(function(res) {
+			console.log(res)
+		})
+	}
 }])

@@ -1,2 +1,4 @@
 _*
 bower_components/
+node_modules/
+dist/

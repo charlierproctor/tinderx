@@ -1,5 +1,10 @@
-angular.module('tinderX',[])
+'use strict';
 
-.config(function(){
+angular.module('tinderX',[
+	'ui.router',
+	'tinderX.login'
+]).
 
-})
+config(['$urlRouterProvider', function($urlRouterProvider) {
+	$urlRouterProvider.otherwise("/");
+}])

@@ -25,7 +25,9 @@ var paths = {
     '!src/bower_components/**/*.js'
   ],
   libs: [],
-  static: []
+  static: [
+    'src/static/**/*'
+  ]
 };
 
 gulp.task('bower', function() {

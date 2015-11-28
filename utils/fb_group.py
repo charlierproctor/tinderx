@@ -4,7 +4,7 @@ FB_URL = "https://graph.facebook.com/v2.5"
 
 ACCESS_TOKEN = os.environ["FB_ACCESS_TOKEN"]
 
-FILE_PATH = "img/"
+FILE_PATH = "../data/"
 
 CHUNK_SIZE = 512
 
@@ -16,10 +16,17 @@ group_request = requests.get(group_url, params = {
 })
 
 group_info = group_request.json()
+FILE_PATH += group_info["id"] + "/"
+
+if os.path.exists(FILE_PATH):
+	sys.stderr.write("directory exists\n")
+	sys.exit()
+else:
+	os.makedirs(FILE_PATH)
 
 members_request = requests.get(group_url + "/members", params = {
 	'access_token': ACCESS_TOKEN,
-	'limit': '10'
+	'limit': '1000'
 })
 
 members = members_request.json()["data"]
@@ -46,6 +53,9 @@ for user in members:
 	}
 
 	saved_users.append(save_me)
+	
+	sys.stdout.write(".")
+	sys.stdout.flush()
 
 final = {
 	"group": group_info,

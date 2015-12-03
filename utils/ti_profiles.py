@@ -1,4 +1,5 @@
 from lxml import html
+from pymongo import MongoClient
 import string,requests,itertools,sys,os
 
 # check usage
@@ -14,6 +15,7 @@ IMG_XPATH = '//*[@id="user-photo"]/@src'
 AGE_XPATH = '//*[@id="age"]/text()'
 TEASER_XPATH = '//*[@id="teaser"]/text()'
 
+# download / parse the results for this username from TINDER_ROOT/@[username]
 def process(username):
 
 	# make and tree'ify the request
@@ -49,7 +51,10 @@ def process(username):
 
 	return results
 
-
+# connect to the database
+client = MongoClient()
+db = client.tinderx
+profiles_collection = db.tinder_profiles
 
 POSSIBLE_LETTERS = '_' + string.digits + string.uppercase
 
@@ -58,6 +63,10 @@ for i in xrange(int(sys.argv[1])):
 	for username in itertools.imap(''.join, itertools.product(POSSIBLE_LETTERS, repeat=i)):
 
 		# process this username
-		print username, process(username)
+		results = process(username)
 
+		# save / print the results
+		if results:
+			profiles_collection.insert_one(results)
+			print username, results
 

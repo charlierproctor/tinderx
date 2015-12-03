@@ -45,5 +45,4 @@ for profile in profiles:
 	# show the image (for 1/2 second)
 	cv2.imshow(profile['name'].encode('ascii', 'ignore'),img)
 	cv2.waitKey(500)
-
-cv2.destroyAllWindows()
+	cv2.destroyAllWindows()

@@ -62,9 +62,9 @@ def detect_eyes(img,draw=False):
 	
 # when this file is executed directly
 if __name__ == '__main__':
-	
+
 	# load the profiles from mongodb
-	profiles = db.profiles().find({}).limit(int(sys.argv[1]))
+	profiles = db.Mongo().load_profiles(int(sys.argv[1]))
 
 	# iterate through the profiles
 	for profile in profiles:

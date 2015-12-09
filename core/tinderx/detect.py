@@ -1,5 +1,6 @@
-import urllib, cv2, sys, os, db
+import urllib, cv2, sys, os
 import numpy as np
+from .. import db
 
 HAAR_EYES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_eye.xml"
 HAAR_FACES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_frontalface_default.xml"
@@ -63,7 +64,7 @@ def detect_eyes(img,draw=False):
 if __name__ == '__main__':
 	
 	# load the profiles from mongodb
-	profiles = db.load_profiles(int(sys.argv[1]))
+	profiles = db.profiles().find({}).limit(int(sys.argv[1]))
 
 	# iterate through the profiles
 	for profile in profiles:

@@ -14,12 +14,19 @@ angular.module('tinderX.login', ['ui.router'])
 	function($scope, fb, $http){
 		$scope.login = function() {
 			fb.login(function(res) {
-				$http.post('/login',res)
-				.success(function(data){
-					console.log(data)
-				}).error(function(data,status){
-					// TODO: do something on error. AND on facebook login error
-				})
+				if (res.status == "connected") {
+
+					var user = {
+						fbid: res.authResponse.userID
+					}
+
+					$http.post('/login',user)
+					.success(function(data){
+						console.log(data)
+					}).error(function(data,status){
+						// TODO: do something on error. AND on facebook login error
+					})
+				}
 			})
 		}
 }])

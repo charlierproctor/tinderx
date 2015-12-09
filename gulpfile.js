@@ -10,23 +10,23 @@ var del = require('del')
 
 var paths = {
   html: [
-  	'src/**/*.html',
-  	'!src/bower_components/**/*.html'
+  	'app/**/*.html',
+  	'!app/bower_components/**/*.html'
   ],
   sass: [
-  	'src/css/*.scss'
+  	'app/css/*.scss'
   ],
   css: [],
   img: [
-  	'src/img/**/*'
+  	'app/img/**/*'
   ],
   scripts: [
-    'src/**/*.js',
-    '!src/bower_components/**/*.js'
+    'app/**/*.js',
+    '!app/bower_components/**/*.js'
   ],
   libs: [],
   static: [
-    'src/static/**/*'
+    'app/static/**/*'
   ]
 };
 

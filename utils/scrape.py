@@ -1,10 +1,17 @@
+# 
+# @author: Charlie Proctor
+# @filename: scrape.py
+# @brief: scrapes tinder profiles from www.gotinder.com/@[username] and
+# saves them into MongoDB
+#
+
 from lxml import html
 from pymongo import MongoClient
 import string,requests,itertools,sys,os
 
 # check usage
 if len(sys.argv) < 2:
-	sys.stderr.write("USAGE: python ti_profiles.py USERNAME_LENGTH\n")
+	sys.stderr.write("USAGE: python scrape.py USERNAME_LENGTH\n")
 	sys.exit(os.EX_USAGE)
 
 TINDER_ROOT = 'https://www.gotinder.com/@'

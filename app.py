@@ -14,17 +14,10 @@ def root():
 
 @app.route('/login', methods=['POST'])
 def login():
-	# grab / parse the request
-	user = request.get_json()
+	# grab the request and log the user in
+	user = User.login(request.get_json())
 
-	db = Mongo()
-
-	# see if the user exists	
-	if not db.find_user(user["fbid"]):
-		# if not, insert the user into the database
-		db.insert_user(user)
-
-	return jsonify(success=True, fbid=user["fbid"])
+	return jsonify(success=True, fbid=user.fbid)
 
 
 # run the app

@@ -9,4 +9,4 @@ class Mongo(object):
 
 	# profiles, users models
 	from profiles import load_profiles
-	from users import find_user,insert_user
+	from users import find_user,insert_user,like_user,dislike_user

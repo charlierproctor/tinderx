@@ -2,12 +2,17 @@ from ..db import Mongo
 from facepy import GraphAPI
 
 @classmethod
-def auth(cls,user):
+def auth(cls,fbid=None,fbAccessToken=None):
+
+	# verify the params exist
+	if (not fbid) or (not fbAccessToken):
+		return False
+
 	app_access_token = "1658892404386340|r90eMbKHygrFIlcJiPRmmKUkbY0"
 	
 	# query /debug_token to verify this user's access token
 	graph = GraphAPI(app_access_token)
-	res = graph.get('/debug_token', input_token=user["fbAccessToken"])
+	res = graph.get('/debug_token', input_token=fbAccessToken)
 
 	# verify the access token
 	if res["data"] and res["data"]["is_valid"]:
@@ -15,10 +20,10 @@ def auth(cls,user):
 		db = Mongo()
 
 		# see if the user exists in MongoDB
-		if not db.find_user(user["fbid"]):
+		if not db.find_user(fbid):
 			# if not, insert the user into the database
-			db.insert_user(user)
+			db.insert_user({'fbid':fbid})
 
-		return cls(user["fbid"])
+		return cls(fbid)
 	else:
 		return False

@@ -13,13 +13,15 @@ def root():
 	return app.send_static_file('index.html')
 
 # authorize a request
-def _auth(req): 
-	return User.auth(req.get_json())
+def _auth(req):
+	return User.auth(fbid=req.cookies.get('fbid'),
+		fbAccessToken=req.cookies.get('fbAccessToken'))
 
 # log a user into the app
 @app.route('/login', methods=['POST'])
 def login(): 
-	return jsonify(success=True, fbid=_auth(request).fbid)
+	user = User.auth(**(request.get_json()))
+	return jsonify(success=True, fbid=user.fbid) if user else jsonify({'error': user}),403
 
 
 # run the app

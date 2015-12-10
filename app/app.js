@@ -3,7 +3,8 @@
 angular.module('tinderX',[
 	'ui.router',
 	'tinderX.login',
-	'facebook'
+	'facebook',
+	'ngCookies'
 ]).
 
 config(['$urlRouterProvider', 'FacebookProvider', 

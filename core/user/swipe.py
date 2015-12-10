@@ -7,7 +7,19 @@ def fetch_profile(self):
 	user = db.find_user(self.fbid)
 	arr = user["likes"] + user["dislikes"]
 
-	print arr
+	# find a random user
+	res,i = db.find_random(),0
+	while (res['usr'] in arr and i < 20):
+		res,i = db.find_random(),i+1
+
+	# no luck finding a random user
+	if i == 20:
+		return False
+
+	# strip out the mongo id
+	res.pop("_id", None)
+
+	return res
 
 # swipe on a particular user
 def swipe(self,user,direction):

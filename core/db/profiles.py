@@ -1,3 +1,5 @@
+import random
+
 # grab the tinder_profiles collection from mongodb
 def _collection(self):
 	return self.db.tinder_profiles
@@ -8,7 +10,8 @@ def load_profiles(self,num):
 
 # find a random profile
 def find_random(self):
-	return _collection(self).aggregate([ {"$sample": { "size": 1 }} ])
+	count = _collection(self).count() 
+	return _collection(self).find({})[random.randint(0,count-1)]
 
 # find a profile by tinder username
 def find_profile(self,username):

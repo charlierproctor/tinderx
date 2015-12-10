@@ -21,7 +21,7 @@ def _auth(req):
 @app.route('/login', methods=['POST'])
 def login(): 
 	user = User.auth(**(request.get_json()))
-	return jsonify(success=True, fbid=user.fbid) if user else jsonify({'error': user}),403
+	return jsonify(success=True, fbid=user.fbid) if user else (jsonify({'error': user}),403)
 
 
 # run the app

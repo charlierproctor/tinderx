@@ -8,5 +8,5 @@ class Mongo(object):
 
 
 	# profiles, users models
-	from profiles import load_profiles,find_random
+	from profiles import load_profiles,find_random,find_profile
 	from users import find_user,insert_user,like_user,dislike_user

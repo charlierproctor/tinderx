@@ -5,7 +5,8 @@ angular.module('tinderX',[
 	'tinderX.login',
 	'tinderX.swipe',
 	'facebook',
-	'ngCookies'
+	'ngCookies',
+	'gajus.swing'
 ]).
 
 config(['$urlRouterProvider', 'FacebookProvider', 

@@ -11,17 +11,17 @@ def insert_user(self,user):
 	return _collection(self).insert_one(user)
 
 # from likes to
-def like_user(self,from_user,to_user):
-	_collection(self).find_one_and_update({"_id": from_user},{
+def like_user(self,from_fbid,to_usr):
+	_collection(self).find_one_and_update({"fbid": from_fbid},{
 			'$addToSet': {
-				"likes": to_user
+				"likes": to_usr
 			}
 		})
 
 # from dislikes to
-def dislike_user(self,from_user,to_user):
-	_collection(self).find_one_and_update({"_id": from_user},{
+def dislike_user(self,from_fbid,to_usr):
+	_collection(self).find_one_and_update({"fbid": from_fbid},{
 			'$addToSet': {
-				"dislikes": to_user
+				"dislikes": to_usr
 			}
 		})

@@ -9,3 +9,7 @@ def load_profiles(self,num):
 # find a random profile
 def find_random(self):
 	return _collection(self).aggregate([ {"$sample": { "size": 1 }} ])
+
+# find a profile by tinder username
+def find_profile(self,username):
+	return _collection(self).find_one({'usr':username})

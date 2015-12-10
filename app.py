@@ -23,6 +23,22 @@ def login():
 	user = User.auth(**(request.get_json()))
 	return jsonify(success=True, fbid=user.fbid) if user else (jsonify({'error': user}),403)
 
+# allow a user to swipe left / right on a candidate
+@app.route('/swipe', methods=['POST'])
+def swipe():
+	user = User.auth(**(request.get_json()))
+	if user:
+		# TODO: error handling here?
+		user.swipe(**(request.get_json()))
+		return jsonify({success=True})
+	else:
+		return jsonify({'error':user}),403
+
+# fetch the next profile for this user
+@app.route('/fetch')
+def fetch():
+	user = User.auth(**request.get_json())
+	return jsonify(user.fetch_profile())
 
 # run the app
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 angular.module('tinderX',[
 	'ui.router',
 	'tinderX.login',
+	'tinderX.swipe',
 	'facebook',
 	'ngCookies'
 ]).

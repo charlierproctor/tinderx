@@ -9,15 +9,17 @@ app = Flask(__name__, static_folder='dist',static_url_path='')
 
 # send index.html on requests to /
 @app.route('/')
-def root():
-    return app.send_static_file('index.html')
+def root(): 
+	return app.send_static_file('index.html')
 
+# authorize a request
+def _auth(req): 
+	return User.auth(req.get_json())
+
+# log a user into the app
 @app.route('/login', methods=['POST'])
-def login():
-	# grab the request and log the user in
-	user = User.login(request.get_json())
-
-	return jsonify(success=True, fbid=user.fbid)
+def login(): 
+	return jsonify(success=True, fbid=_auth(request).fbid)
 
 
 # run the app

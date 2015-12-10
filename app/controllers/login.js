@@ -17,8 +17,10 @@ angular.module('tinderX.login', ['ui.router'])
 				if (res.status == "connected") {
 
 					var user = {
-						fbid: res.authResponse.userID
+						fbid: res.authResponse.userID,
+						fbAccessToken: res.authResponse.accessToken
 					}
+					console.log(user)
 
 					$http.post('/login',user)
 					.success(function(data){

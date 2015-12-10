@@ -5,3 +5,7 @@ def _collection(self):
 # load *num* profiles
 def load_profiles(self,num):
 	return _collection(self).find({}).limit(num)
+
+# find a random profile
+def find_random(self):
+	return _collection(self).aggregate([ {"$sample": { "size": 1 }} ])

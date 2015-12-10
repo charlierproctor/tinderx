@@ -1,7 +1,12 @@
 from ..db import Mongo
 
 def next_profile(self):
-	pass
+	db = Mongo()
+
+	user = db.find_user(self.fbid)
+	arr = user["likes"] + user["dislikes"]
+
+	print arr
 
 # dislike
 def swipe_left(self,users_fbid):

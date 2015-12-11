@@ -4,6 +4,7 @@
 		<div class="pure-u-1" ng-show="errors.api">
 			<h1>Error</h1>
 			<p>{{errors.api}}</p>
+			<a ui-sref="login" href="#"><p>Start over</p></a>
 		</div>
 		<h1 class="pure-u-1" ng-hide="errors.api">
 			<span id="name">{{user.name}}</span>, <span id="age">{{user.age}}</span>

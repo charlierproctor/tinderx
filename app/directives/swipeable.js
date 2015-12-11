@@ -29,6 +29,12 @@ angular.module('tinderX.swipeable',[])
 						left: (orig.x + coords.x - start.x) + "px"
 					})
 				},
+				cancel: function(event){
+					elem.css({
+						top: orig.y + "px",
+						left: orig.x + "px"
+					})
+				},
 				end: function(coords,event){
 					elem.css({
 						top: orig.y + "px",

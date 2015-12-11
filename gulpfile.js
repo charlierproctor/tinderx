@@ -16,7 +16,9 @@ var paths = {
   sass: [
   	'app/css/*.scss'
   ],
-  css: [],
+  css: [
+    'app/bower_components/pure/pure-min.css'
+  ],
   img: [
   	'app/img/**/*'
   ],
@@ -67,7 +69,11 @@ gulp.task('static', ['bower','clean'], function() {
 })
 gulp.task('vendor', ['bower','clean'], function() {
 	return gulp.src(bowerFiles({
-    "overrides":{}
+    "overrides":{
+      "pure": {
+        ignore: true
+      }
+    }
   }).concat(paths.libs))
   .pipe(using())
 	.pipe(concat('lib.js'))

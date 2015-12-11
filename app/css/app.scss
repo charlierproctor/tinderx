@@ -1,0 +1,27 @@
+// Colors
+$blue: #00AAEE;
+$green: #0AFF00;
+$yellow: #FFCC00;
+$red: #FF3500;
+$purple: #A300FF;
+
+$white: white;
+$black: black;
+
+.button-xlarge {
+    font-size: 125%;
+}
+
+#content {
+	text-align: center;
+
+	#swipe {
+		img {
+			border-radius: 20px;
+			box-shadow: 3px 3px 10px 5px $black;
+		}
+		.buttons {
+			margin-top: 5%;
+		}
+	}
+}

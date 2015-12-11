@@ -1,8 +1,22 @@
-{{user.name}}
-{{user.age}}
-{{user.tsr}}
+<div id="swipe">
 
-<img ng-src="{{'http://images.gotinder.com' + user.img}}" width="400">
+	<div class="pure-g">
+		<h1 class="pure-u-1">
+			<span id="name">{{user.name}}</span>, <span id="age">{{user.age}}</span>
+		</h1>
+		<h2 class="pure-u-1" id="teaser">{{user.tsr}}</h2>
+	</div>
 
-<button ng-click="left()">Left</button>
-<button ng-click="right()">Right</button>
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<img ng-src="{{'http://images.gotinder.com' + user.img}}" width="400">
+		</div>
+	</div>
+
+	<div class="pure-g buttons">
+		<div class="pure-u-1">
+			<button class="pure-button pure-button-primary button-xlarge" ng-click="left()">Left</button>
+			<button class="pure-button pure-button-primary button-xlarge" ng-click="right()">Right</button>
+		</div>
+	</div>
+</div>

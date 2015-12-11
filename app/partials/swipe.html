@@ -12,7 +12,7 @@
 			<i ng-click="left()" class="fa fa-arrow-left"></i>
 		</div>
 		<div class="pure-u-1-2">
-			<img class="pure-img" ng-src="{{'http://images.gotinder.com' + user.img}}">
+			<img class="pure-img" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
 		</div>
 		<div class="icon pure-u-1-4">
 			<i ng-click="right()" class="fa fa-arrow-right"></i>

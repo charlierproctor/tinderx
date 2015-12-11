@@ -10,8 +10,8 @@ angular.module('tinderX.login', ['ui.router'])
 	})
 }])
 
-.controller('LoginCtrl', ['$scope', 'Facebook', '$http', '$cookies',
-	function($scope, fb, $http, $cookies){
+.controller('LoginCtrl', ['$scope', 'Facebook', '$http', '$cookies', '$state',
+	function($scope, fb, $http, $cookies, $state){
 		$scope.login = function() {
 
 			fb.login(function(res) {
@@ -30,6 +30,8 @@ angular.module('tinderX.login', ['ui.router'])
 						// TODO: only login when successful
 						$cookies.put('fbid',user['fbid'])
 						$cookies.put('fbAccessToken',user['fbAccessToken'])
+
+						$state.go('swipe')
 
 					}).error(function(data,status){
 						// TODO: do something on error. AND on facebook login error

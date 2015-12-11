@@ -20,13 +20,20 @@ $black: black;
 		margin-top: 200px;
 	}
 	#swipe {
-		img {
-			border-radius: 20px;
-			box-shadow: 3px 3px 10px 5px $black;
-			-webkit-user-drag: none;
+		.swiper {
+			position: relative;
+			img {
+				border-radius: 20px;
+				box-shadow: 3px 3px 10px 5px $black;
+				-webkit-user-drag: none;
+				top: 0;
+				left: 0;
+			}
 		}
 		.buttons {
-			margin-top: 5%;
+			bottom: 30%;
+			position: absolute;
+			width: 100%;
 		}
 		i {
 			margin-top: 50%;

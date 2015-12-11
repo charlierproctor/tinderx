@@ -4,6 +4,7 @@ angular.module('tinderX',[
 	'ui.router',
 	'tinderX.login',
 	'tinderX.swipe',
+	'tinderX.swipeable',
 	'facebook',
 	'ngCookies',
 	'ngTouch'

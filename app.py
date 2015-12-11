@@ -18,6 +18,10 @@ def before():
 	g.user = User.auth(fbid=request.cookies.get('fbid'),
 		fbAccessToken=request.cookies.get('fbAccessToken'))
 
+@app.errorhandler(403)
+def access_denied(e):
+    return jsonify(message="403 Forbidden"), 403
+
 # log a user into the app
 @app.route('/login', methods=['POST'])
 def login(**kwargs): 

@@ -1,13 +1,17 @@
 <div id="swipe">
 
 	<div class="pure-g">
-		<h1 class="pure-u-1">
+		<div class="pure-u-1" ng-show="errors.api">
+			<h1>Error</h1>
+			<p>{{errors.api}}</p>
+		</div>
+		<h1 class="pure-u-1" ng-hide="errors.api">
 			<span id="name">{{user.name}}</span>, <span id="age">{{user.age}}</span>
 		</h1>
-		<h2 class="pure-u-1" id="teaser">{{user.tsr}}</h2>
+		<h2 class="pure-u-1" ng-hide="errors.api" id="teaser">{{user.tsr}}</h2>
 	</div>
 
-	<div class="pure-g" ng-swipe-left="left()" ng-swipe-right="right()">
+	<div class="pure-g" ng-hide="errors.api" ng-swipe-left="left()" ng-swipe-right="right()">
 		<div class="icon pure-u-1-4">
 			<i ng-click="left()" class="fa fa-arrow-left"></i>
 		</div>
@@ -19,7 +23,7 @@
 		</div>
 	</div>
 
-	<div class="pure-g buttons">
+	<div class="pure-g buttons" ng-hide="errors.api">
 		<div class="pure-u-1">
 			<button class="pure-button pure-button-primary button-xlarge" ng-click="left()">Dislike</button>
 			<button class="pure-button pure-button-primary button-xlarge" ng-click="right()">Like</button>

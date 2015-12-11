@@ -12,31 +12,37 @@ angular.module('tinderX.login', ['ui.router'])
 
 .controller('LoginCtrl', ['$scope', 'Facebook', '$http', '$cookies', '$state',
 	function($scope, fb, $http, $cookies, $state){
+		$scope.errors = {}
+
 		$scope.login = function() {
 
 			fb.login(function(res) {
 				if (res.status == "connected") {
+					
+					$scope.errors.facebook = false
 
 					var user = {
 						fbid: res.authResponse.userID,
 						fbAccessToken: res.authResponse.accessToken
 					}
-					console.log(user)
 
 					$http.post('/login',user)
 					.success(function(data){
-						console.log(data)
 
-						// TODO: only login when successful
+						$scope.errors.api = false
+
 						$cookies.put('fbid',user['fbid'])
 						$cookies.put('fbAccessToken',user['fbAccessToken'])
 
 						$state.go('swipe')
 
 					}).error(function(data,status){
-						// TODO: do something on error. AND on facebook login error
+						$scope.errors.api = data.message
 					})
+				} else {
+					$scope.errors.facebook = res.status
 				}
 			})
+
 		}
 }])

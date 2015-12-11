@@ -19,6 +19,7 @@ $black: black;
 		img {
 			border-radius: 20px;
 			box-shadow: 3px 3px 10px 5px $black;
+			-webkit-user-drag: none;
 		}
 		.buttons {
 			margin-top: 5%;

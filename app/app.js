@@ -5,7 +5,8 @@ angular.module('tinderX',[
 	'tinderX.login',
 	'tinderX.swipe',
 	'facebook',
-	'ngCookies'
+	'ngCookies',
+	'ngTouch'
 ]).
 
 config(['$urlRouterProvider', 'FacebookProvider', 

@@ -12,23 +12,19 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 .controller('SwipeCtrl', ['$scope', '$http', function($scope, $http){
 
-	$scope.fetch = function() {
-	 	$http.get('/fetch')
-	 	.success(function(data) {
-	 		$scope.user = data
-	 	}).error(function(data,status) {
-	 		// TODO: handle the error
-	 	})
-	}
-
-	$scope.fetch()
+ 	$http.get('/fetch')
+ 	.success(function(data) {
+ 		$scope.user = data.next
+ 	}).error(function(data,status) {
+ 		// TODO: handle the error
+ 	})
 
 	$scope.left = function(){
 		$http.post('/swipe',{
 			user: $scope.user,
 			direction: 'left'
 		}).success(function(data){
-			$scope.fetch()
+			$scope.user = data.next
 		}).error(function(data,status){
 
 		})
@@ -39,7 +35,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 			user: $scope.user,
 			direction: 'right'
 		}).success(function(data){
-			$scope.fetch()
+			$scope.user = data.next
 		}).error(function(data,status){
 
 		})

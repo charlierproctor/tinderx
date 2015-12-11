@@ -5,7 +5,7 @@ def fetch_profile(self):
 
 	# find who this user likes / dislikes already
 	user = db.find_user(self.fbid)
-	arr = user["likes"] + user["dislikes"]
+	arr = (user.get("likes") or []) + (user.get("dislikes") or [])
 
 	# find a random user
 	res,i = db.find_random(),0
@@ -27,6 +27,11 @@ def swipe(self,user,direction):
 
 	# like / dislike the user accordingly
 	if direction == 'left':
-		return db.dislike_user(self.fbid,user.get('usr'))
+		res = db.dislike_user(self.fbid,user.get('usr'))
 	else:
-		return db.like_user(self.fbid,user.get('usr'))
+		res = db.like_user(self.fbid,user.get('usr'))
+
+	# strip out the mongo id
+	res.pop("_id", None)
+
+	return res

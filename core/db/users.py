@@ -12,7 +12,7 @@ def insert_user(self,user):
 
 # from likes to
 def like_user(self,from_fbid,to_usr):
-	_collection(self).find_one_and_update({"fbid": from_fbid},{
+	return _collection(self).find_one_and_update({"fbid": from_fbid},{
 			'$addToSet': {
 				"likes": to_usr
 			}
@@ -20,7 +20,7 @@ def like_user(self,from_fbid,to_usr):
 
 # from dislikes to
 def dislike_user(self,from_fbid,to_usr):
-	_collection(self).find_one_and_update({"fbid": from_fbid},{
+	return _collection(self).find_one_and_update({"fbid": from_fbid},{
 			'$addToSet': {
 				"dislikes": to_usr
 			}

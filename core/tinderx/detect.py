@@ -1,6 +1,7 @@
-import urllib, cv2, sys, os
+import cv2, sys, os
 import numpy as np
 from .. import db
+from ..profile import Profile
 
 HAAR_EYES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_eye.xml"
 HAAR_FACES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_frontalface_default.xml"
@@ -10,15 +11,6 @@ def _show_img(img,name="tinderx",time=500):
 	cv2.imshow(name.encode('ascii', 'ignore'),img)
 	cv2.waitKey(time)
 	cv2.destroyAllWindows()
-
-# download the image from http://images.gotinder.com/[img_url]
-def _download_img(url):
-	# send the http request
-	req = urllib.urlopen("http://images.gotinder.com" + url)
-
-	# convert to cv2 image
-	arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
-	return cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
 # detect the faces in an image
 def _detect_faces(img,draw=False):
@@ -76,12 +68,13 @@ if __name__ == '__main__':
 	# iterate through the profiles
 	for profile in profiles:
 
-		# downloading the image
-		img = _download_img(profile['img'])
+		# create the profile and download the image
+		prof = Profile(profile)
+		prof.download_img()
 		
 		# detecting faces, eyes
-		faces = _detect_faces(img,draw=True)
-		eyes = _detect_eyes(img,draw=True)
+		faces = _detect_faces(prof.img,draw=True)
+		eyes = _detect_eyes(prof.img,draw=True)
 
 		# and display the image
-		_show_img(img,profile['name'])
+		_show_img(prof.img,prof.name)

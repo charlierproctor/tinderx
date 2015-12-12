@@ -1,4 +1,5 @@
 from ..db import Mongo
+from ..profile import Profile
 
 def fetch_profile(self):
 	db = Mongo()
@@ -30,6 +31,9 @@ def swipe(self,profile,direction):
 		res = db.dislike_user(self.fbid,profile.get('usr'))
 	else:
 		res = db.like_user(self.fbid,profile.get('usr'))
+
+	# create our profile object
+	prof = Profile(profile)
 
 	# strip out the mongo id
 	res.pop("_id", None)

@@ -20,10 +20,12 @@ def auth(cls,fbid=None,fbAccessToken=None):
 		db = Mongo()
 
 		# see if the user exists in MongoDB
-		if not db.find_user(fbid):
-			# if not, insert the user into the database
-			db.insert_user({'fbid':fbid})
+		user = db.find_user(fbid)
 
-		return cls(fbid)
+		if not user:
+			# if not, insert the user into the database
+			user = db.insert_user({'fbid':fbid})
+
+		return cls(fbid,user.get('likes'),user.get('dislikes'))
 	else:
 		return False

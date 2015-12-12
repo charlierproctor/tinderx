@@ -12,7 +12,7 @@ def _show_img(img,name="tinderx",time=500):
 	cv2.destroyAllWindows()
 
 # download the image from http://images.gotinder.com/[img_url]
-def download_img(url):
+def _download_img(url):
 	# send the http request
 	req = urllib.urlopen("http://images.gotinder.com" + url)
 
@@ -21,7 +21,7 @@ def download_img(url):
 	return cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
 # detect the faces in an image
-def detect_faces(img,draw=False):
+def _detect_faces(img,draw=False):
 	# convert to grayscale
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -41,7 +41,7 @@ def detect_faces(img,draw=False):
 	return faces
 
 # detect the eyes in an image
-def detect_eyes(img,draw=False):
+def _detect_eyes(img,draw=False):
 	# convert to grayscale
 	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -60,6 +60,13 @@ def detect_eyes(img,draw=False):
 
 	return eyes
 	
+def normalize(self):
+	# download the image
+	img = _download_img(self.user.img)
+
+	# detect the faces
+	faces = _detect_faces(img)
+
 # when this file is executed directly
 if __name__ == '__main__':
 
@@ -70,11 +77,11 @@ if __name__ == '__main__':
 	for profile in profiles:
 
 		# downloading the image
-		img = download_img(profile['img'])
+		img = _download_img(profile['img'])
 		
 		# detecting faces, eyes
-		faces = detect_faces(img,draw=True)
-		eyes = detect_eyes(img,draw=True)
+		faces = _detect_faces(img,draw=True)
+		eyes = _detect_eyes(img,draw=True)
 
 		# and display the image
 		_show_img(img,profile['name'])

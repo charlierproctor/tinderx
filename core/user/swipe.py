@@ -34,6 +34,7 @@ def swipe(self,profile,direction):
 
 	# create our profile object
 	prof = Profile(profile)
+	prof.normalize()
 
 	# strip out the mongo id
 	res.pop("_id", None)

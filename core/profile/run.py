@@ -25,6 +25,7 @@ if __name__ == '__main__':
 		# detecting faces, eyes
 		prof.detect_faces(draw=True)
 		prof.detect_eyes(draw=True)
+		prof.calculate_pupils(draw=True)
 
 		# and display the image
 		_show_img(prof.img,prof.name)

@@ -47,3 +47,38 @@ def calculate_pupils(self,draw=False):
 	if draw:
 		for (x,y) in self.pupils:
 			cv2.circle(self.img, (x,y), 5, (255, 0, 0), 2)
+
+# determine if a point lies in a rectangle
+# pt specified as (x,y)
+# rect specified as (x,y,w,h)
+def _point_in_rect(pt,rect):
+	return ((pt[0] >= rect[0]) 
+	and (pt[0] <= rect[0] + rect[1]) 
+	and (pt[1] >= rect[2])
+	and (pt[1] <= rect[2] + rect[3]))
+
+# determine which faces have two eyes
+def _valid_faces(self):
+
+	valids = []
+	for face in self.faces:
+		eyes = 0
+
+		# determine how many eyes this face has
+		for eye in self.pupils:
+			if _point_in_rect(eye,face):
+				eyes += 1
+
+		# if the face has at two eyes, keep it
+		if eyes == 2:
+			valids.append(face)
+
+	return valids
+
+
+# the best face is the largest valid face
+def best_face(self):
+	valids = _valid_faces(self)
+
+	self.best = max(valids,key=lambda face: (face[2]**2 + face[3]**2)**0.5) if len(valids) > 0 else None
+	print "Best: ", self.best

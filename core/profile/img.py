@@ -16,9 +16,9 @@ def download_img(self):
 	self.img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
 # crop the image (and the grayscale)
-def crop(self,x,y,w,h):
+def _crop(self,x,y,w,h):
 	self.img = self.img[x:x+w,y:y+h]
-	self.gray = self.gray[x:x+w,y:y+h] if self.gray else None
+	self.gray = self.gray[x:x+w,y:y+h]
 
 def normalize(self):
 
@@ -31,6 +31,13 @@ def normalize(self):
 	self.detect_eyes()
 
 	self.calculate_pupils()
-	pdb.set_trace()
+	self.best_face()
+
+	if not isinstance(self.best,np.ndarray):
+		# no valid faces
+		return False
+	else:
+		# crop the image down to just this face
+		_crop(self,*(self.best))
 
 

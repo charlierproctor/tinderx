@@ -39,9 +39,11 @@ def detect_eyes(self,draw=False):
 # calculate the center of each eye
 def calculate_pupils(self,draw=False):
 
+	# a pupil is the center of the eye
 	for (x, y, w, h) in self.eyes:
 		self.pupils.append((x + w/2, y + h/2))
 
+	# draw the pupils on the img
 	if draw:
 		for (x,y) in self.pupils:
 			cv2.circle(self.img, (x,y), 5, (255, 0, 0), 2)

@@ -15,6 +15,10 @@ def download_img(self):
 	arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
 	self.img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
+# crop the image (and the grayscale)
+def crop(self,x,y,w,h):
+	self.img = self.img[x:x+w,y:y+h]
+	self.gray = self.gray[x:x+w,y:y+h] if self.gray else None
 
 def normalize(self):
 

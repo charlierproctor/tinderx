@@ -1,5 +1,5 @@
-from core.tinderx import TinderX
 from core.user import User
+from core.profile import Profile
 from core.db import Mongo
 
 from flask import Flask, request, jsonify, g, abort

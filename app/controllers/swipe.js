@@ -24,7 +24,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 	$scope.left = function(){
 		$http.post('/swipe',{
-			user: $scope.user,
+			profile: $scope.user,
 			direction: 'left'
 		}).success(function(data){
 			$scope.user = data.next
@@ -36,7 +36,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 	$scope.right = function(){
 		$http.post('/swipe',{
-			user: $scope.user,
+			profile: $scope.user,
 			direction: 'right'
 		}).success(function(data){
 			$scope.user = data.next

@@ -62,7 +62,7 @@ def _detect_eyes(img,draw=False):
 	
 def normalize(self):
 	# download the image
-	img = _download_img(self.user.img)
+	img = _download_img(self.user.liked_img)
 
 	# detect the faces
 	faces = _detect_faces(img)

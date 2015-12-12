@@ -21,15 +21,15 @@ def fetch_profile(self):
 
 	return res
 
-# swipe on a particular user
-def swipe(self,user,direction):
+# swipe on a particular profile
+def swipe(self,profile,direction):
 	db = Mongo()
 
-	# like / dislike the user accordingly
+	# like / dislike the profile accordingly
 	if direction == 'left':
-		res = db.dislike_user(self.fbid,user.get('usr'))
+		res = db.dislike_user(self.fbid,profile.get('usr'))
 	else:
-		res = db.like_user(self.fbid,user.get('usr'))
+		res = db.like_user(self.fbid,profile.get('usr'))
 
 	# strip out the mongo id
 	res.pop("_id", None)

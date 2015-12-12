@@ -26,6 +26,6 @@ def auth(cls,fbid=None,fbAccessToken=None):
 			# if not, insert the user into the database
 			user = db.insert_user({'fbid':fbid})
 
-		return cls(fbid,user.get('likes'),user.get('dislikes'))
+		return cls(user)
 	else:
 		return False

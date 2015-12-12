@@ -11,6 +11,7 @@ class Profile(object):
 		self.teaser = profile.get('tsr')
 
 		# the user's image (needs to be downloaded)
-		self.img = None
+		self.img,self.gray,self.faces,self.eyes = None,None,None,None
 
-	from img import download_img
+	from img import download_img,create_gray,normalize
+	from detect import detect_faces,detect_eyes

@@ -11,8 +11,8 @@ def detect_faces(self,draw=False):
 	self.faces = cv2.CascadeClassifier(HAAR_FACES).detectMultiScale(
 		self.gray,
 		scaleFactor=1.1,
-		minNeighbors=5,
-		minSize=(50, 50)
+		minNeighbors=3,
+		minSize=(25, 25)
 	)
 
 	# draw the faces on the image
@@ -27,8 +27,8 @@ def detect_eyes(self,draw=False):
 	self.eyes = cv2.CascadeClassifier(HAAR_EYES).detectMultiScale(
 		self.gray,
 		scaleFactor=1.1,
-		minNeighbors=5,
-		minSize=(10, 10)
+		minNeighbors=3,
+		minSize=(5, 5)
 	)
 
 	# draw the eyes on the image
@@ -69,8 +69,8 @@ def _valid_faces(self):
 			if _point_in_rect(eye,face):
 				eyes += 1
 
-		# if the face has at two eyes, keep it
-		if eyes == 2:
+		# if the face has an eye, keep it
+		if eyes >= 1:
 			valids.append(face)
 
 	return valids

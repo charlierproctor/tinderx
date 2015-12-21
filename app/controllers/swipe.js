@@ -14,6 +14,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 	$scope.errors = {}
 
+	// get the first user
  	$http.get('/fetch')
  	.success(function(data) {
  		$scope.user = data.next
@@ -22,22 +23,13 @@ angular.module('tinderX.swipe', ['ui.router'])
  		$scope.errors.api = data.message
  	})
 
-	$scope.left = function(){
-		$http.post('/swipe',{
-			profile: $scope.user,
-			direction: 'left'
-		}).success(function(data){
-			$scope.user = data.next
-			$scope.errors.api = false
-		}).error(function(data,status){
-			$scope.errors.api = data.message
-		})
-	}
+ 	// swipe left / right on $scope.user
+	$scope.swipe = function(dir){
 
-	$scope.right = function(){
+		// send a POST request to /swipe
 		$http.post('/swipe',{
 			profile: $scope.user,
-			direction: 'right'
+			direction: dir
 		}).success(function(data){
 			$scope.user = data.next
 			$scope.errors.api = false

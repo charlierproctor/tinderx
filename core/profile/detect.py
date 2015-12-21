@@ -82,7 +82,7 @@ def best_face(self):
 	valids = _valid_faces(self)
 
 	self.best = max(valids,key=lambda face: (face[2]**2 + face[3]**2)**0.5) if len(valids) > 0 else None
-	print "Best: ", self.best
+	print "best:", self.best
 
 	if not isinstance(self.best,np.ndarray):
 		raise NoValidFaces

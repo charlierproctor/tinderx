@@ -13,6 +13,9 @@ def _predict(self,img):
 	norm_liked = cv2.norm(diff_liked)
 	norm_disliked = cv2.norm(diff_disliked)
 
+	print "liked:", norm_liked 
+	print "disliked:", norm_disliked
+
 	# and make the prediction
 	return 'like' if norm_liked < norm_disliked else 'dislike'
 

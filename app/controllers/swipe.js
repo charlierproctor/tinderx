@@ -10,9 +10,17 @@ angular.module('tinderX.swipe', ['ui.router'])
 	})
 }])
 
-.controller('SwipeCtrl', ['$scope', '$http', function($scope, $http){
+.controller('SwipeCtrl', ['$scope', '$http', '$window', function($scope, $http, $window){
 
 	$scope.errors = {}
+
+	$window.onkeydown = function(){
+		if (event.keyCode == 37) {
+			$scope.swipe('left')
+		} else if (event.keyCode == 39) {
+			$scope.swipe('right')
+		}
+	}
 
 	// get the first user
  	$http.get('/fetch')

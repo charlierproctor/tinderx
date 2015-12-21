@@ -1,10 +1,17 @@
 from ..db import Mongo
 from ..profile import Profile
 import cv2
-from ..errors import NoValidFaces
+from ..errors import NoValidFaces, NoImageYet
 
 # predict how a user will swipe on a given image, based on a history of swipes.
 def _predict(self,img):
+
+	# raise an error if we don't have liked / disliked images yet.
+	if not self.liked_img:
+		raise NoImageYet('liked_img')
+	elif not self.disliked_img:
+		raise NoImageYet('disliked_img')
+
 	# calculate the differences between this image and the liked / disliked average
 	diff_liked = cv2.subtract(img, self.liked_img)
 	diff_disliked = cv2.subtract(img, self.disliked_img)
@@ -45,7 +52,7 @@ def fetch_profile(self):
 
 		# and make a prediction!
 		res['prediction'] = _predict(self,prof.gray)
-	except NoValidFaces, e:
+	except (NoValidFaces, NoImageYet), e:
 		# TODO: probably just don't send the image?
 		print e
 

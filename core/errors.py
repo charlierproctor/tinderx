@@ -12,3 +12,8 @@ class AppError(Exception):
 class NoValidFaces(AppError):
 	def __init__(self):
 		AppError.__init__(self,500,"No valid faces detected.")
+
+# no stored image of this type yet
+class NoImageYet(AppError):
+	def __init__(self,img_name):
+		AppError.__init__(self,500,"No {0} yet.".format(img_name))

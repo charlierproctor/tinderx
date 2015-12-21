@@ -1,7 +1,7 @@
 from core.user import User
 from core.profile import Profile
 from core.db import Mongo
-
+from core.errors import NoValidFaces, NoImageYet
 from flask import Flask, request, jsonify, g, abort
 
 # configure the app
@@ -31,6 +31,11 @@ def access_denied(e):
 def not_found(e):
 	# jsonify the message
     return jsonify(message="404 Not Found"), 404
+
+# error handler: no valid faces detected
+@app.errorhandler(NoValidFaces)
+def no_valid_faces(e):
+	return jsonify(message=e.message), e.status
 
 # POST /login: log a user into the app
 @app.route('/login', methods=['POST'])

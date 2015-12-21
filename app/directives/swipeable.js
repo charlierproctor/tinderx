@@ -7,7 +7,10 @@ angular.module('tinderX.swipeable',[])
 		link: function(scope,elem,attrs){
 
 			elem.css({
-                position: 'absolute'
+                position: 'absolute',
+                top: 0,
+				left: 0,
+				'-webkit-user-drag': 'none'
             });
 
 			var start

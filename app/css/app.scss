@@ -15,19 +15,19 @@ $black: black;
 #content {
 	text-align: center;
 
+	// login screen
 	#login {
 		font-size: 5vmin;
 		margin-top: 200px;
 	}
+
+	// swipe page
 	#swipe {
 		.swiper {
 			position: relative;
 			img {
 				border-radius: 20px;
 				box-shadow: 3px 3px 10px 5px $black;
-				-webkit-user-drag: none;
-				top: 0;
-				left: 0;
 			}
 		}
 		.buttons {

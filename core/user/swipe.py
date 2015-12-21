@@ -1,5 +1,6 @@
 from ..db import Mongo
 from ..profile import Profile
+import cv2
 
 def fetch_profile(self):
 	db = Mongo()
@@ -36,8 +37,23 @@ def swipe(self,profile,direction):
 	prof = Profile(profile)
 	prof.normalize()
 
-	name = 'liked_img' if direction == 'right' else 'disliked_img'
-	db.update_img(self.fbid,name,prof.gray)
+	# like this profile
+	if direction == 'right':
+		name = 'liked_img'
+		img = self.liked_img
+		weight = len(self.likes)
+	
+	# dislike this profile
+	else:
+		name = 'disliked_img'
+		img = self.disliked_img
+		weight = len(self.dislikes)
+
+	# calculate the new image.
+	new_img = cv2.addWeighted(img,weight,prof.gray,1,0)
+
+	# and save it to the database
+	db.update_img(self.fbid,name,new_img)
 
 	# strip out the mongo id and the two images.
 	res.pop("_id", None)

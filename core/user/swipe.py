@@ -28,6 +28,9 @@ def _predict(self,img):
 	return 'like' if norm_liked < norm_disliked else 'dislike'
 
 def fetch_profile(self):
+	
+	print "*"*20, "FETCH NEXT PROFILE", "*"*20
+
 	db = Mongo()
 
 	# find who this user likes / dislikes already
@@ -62,6 +65,9 @@ def fetch_profile(self):
 
 # swipe on a particular profile
 def swipe(self,profile,direction):
+
+	print "*"*20, "PROCESS SWIPE", "*"*20
+
 	db = Mongo()
 
 	# like / dislike the profile accordingly

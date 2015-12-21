@@ -65,7 +65,7 @@ def fetch_profile(self):
 		}
 	except NoImageYet, e:
 		# don't have both a liked_img and disliked_img yet
-		res['erorr'] = {
+		res['error'] = {
 			'type': 'NoImageYet',
 			'message': e.message,
 			'img_name': e.img_name

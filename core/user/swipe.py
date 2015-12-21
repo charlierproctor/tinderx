@@ -57,9 +57,19 @@ def fetch_profile(self):
 		# and make a prediction!
 		res['prediction'] = _predict(self,prof.gray)
 		print 'predict:', res['prediction']
-	except (NoValidFaces, NoImageYet), e:
-		# TODO: probably just don't send the image?
-		print e
+	except NoValidFaces, e:
+		# no valid faces detected
+		res['error'] = {
+			'type': 'NoValidFaces',
+			'message': e.message
+		}
+	except NoImageYet, e:
+		# don't have both a liked_img and disliked_img yet
+		res['erorr'] = {
+			'type': 'NoImageYet',
+			'message': e.message,
+			'img_name': e.img_name
+		}
 
 	return res
 

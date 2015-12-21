@@ -23,6 +23,19 @@ def fetch_profile(self):
 
 	return res
 
+# predict how a user will swipe on a given image, based on a history of swipes.
+def _predict(self,img):
+	# calculate the differences between this image and the liked / disliked average
+	diff_liked = cv2.subtract(img, self.liked_img)
+	diff_disliked = cv2.subtract(img, self.disliked_img)
+
+	# calculate the norms of the differences
+	norm_liked = cv2.norm(diff_liked)
+	norm_disliked = cv2.norm(diff_disliked)
+
+	# and make the prediction
+	return 'like' if norm_liked < norm_disliked else 'dislike'
+
 # swipe on a particular profile
 def swipe(self,profile,direction):
 	db = Mongo()

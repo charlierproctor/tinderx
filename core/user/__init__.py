@@ -7,8 +7,8 @@ class User(object):
 		self.fbid = user.get('fbid')
 
 		# arrays of the likes / dislikes
-		self.likes = user.get('likes')
-		self.dislikes = user.get('dislikes')
+		self.likes = user.get('likes') or []
+		self.dislikes = user.get('dislikes') or []
 
 		# prior liked / disliked averages
 		self.liked_img = pickle.loads(user.get('liked_img')) if user.get('liked_img') else None

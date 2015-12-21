@@ -53,6 +53,7 @@ def fetch_profile(self):
 
 		# and make a prediction!
 		res['prediction'] = _predict(self,prof.gray)
+		print 'predict:', res['prediction']
 	except (NoValidFaces, NoImageYet), e:
 		# TODO: probably just don't send the image?
 		print e
@@ -91,7 +92,6 @@ def swipe(self,profile,direction):
 	alpha = float(weight) / float(denom)
 	beta = 1.0 / float(denom)
 
-	print alpha, beta
 	# calculate the new image.
 	new_img = cv2.addWeighted(img,alpha,prof.gray,beta,0) if (isinstance(img,np.ndarray)) else prof.gray
 

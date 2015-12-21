@@ -2,14 +2,15 @@ from ..db import Mongo
 from ..profile import Profile
 import cv2
 from ..errors import NoValidFaces, NoImageYet
+import numpy as np
 
 # predict how a user will swipe on a given image, based on a history of swipes.
 def _predict(self,img):
 
 	# raise an error if we don't have liked / disliked images yet.
-	if not self.liked_img:
+	if not isinstance(self.liked_img,np.ndarray):
 		raise NoImageYet('liked_img')
-	elif not self.disliked_img:
+	elif not isinstance(self.disliked_img,np.ndarray):
 		raise NoImageYet('disliked_img')
 
 	# calculate the differences between this image and the liked / disliked average
@@ -86,7 +87,7 @@ def swipe(self,profile,direction):
 		weight = len(self.dislikes)
 
 	# calculate the new image.
-	new_img = cv2.addWeighted(img,weight,prof.gray,1,0)
+	new_img = cv2.addWeighted(img,weight,prof.gray,1,0) if (isinstance(img,np.ndarray)) else prof.gray
 
 	# and save it to the database
 	db.update_img(self.fbid,name,new_img)

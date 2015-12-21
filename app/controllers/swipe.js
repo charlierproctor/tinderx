@@ -14,6 +14,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 	$scope.errors = {}
 
+	// use left / right arrows to swipe
 	$window.onkeydown = function(){
 		if (event.keyCode == 37) {
 			$scope.swipe('left')

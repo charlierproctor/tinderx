@@ -53,9 +53,9 @@ def calculate_pupils(self,draw=False):
 # rect specified as (x,y,w,h)
 def _point_in_rect(pt,rect):
 	return ((pt[0] >= rect[0]) 
-	and (pt[0] <= rect[0] + rect[1]) 
-	and (pt[1] >= rect[2])
-	and (pt[1] <= rect[2] + rect[3]))
+	and (pt[0] <= rect[0] + rect[2]) 
+	and (pt[1] >= rect[1])
+	and (pt[1] <= rect[1] + rect[3]))
 
 # determine which faces have two eyes
 def _valid_faces(self):

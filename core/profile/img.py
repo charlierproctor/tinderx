@@ -28,9 +28,11 @@ def normalize(self):
 
 	# detect the faces
 	self.detect_faces()
-	self.detect_eyes()
 
+	# detect eyes, calculate pupils
+	self.detect_eyes()
 	self.calculate_pupils()
+
 	self.best_face()
 
 	if not isinstance(self.best,np.ndarray):

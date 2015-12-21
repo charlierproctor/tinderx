@@ -86,8 +86,14 @@ def swipe(self,profile,direction):
 		img = self.disliked_img
 		weight = len(self.dislikes)
 
+	# calculate the weights
+	denom = weight + 1
+	alpha = float(weight) / float(denom)
+	beta = 1.0 / float(denom)
+
+	print alpha, beta
 	# calculate the new image.
-	new_img = cv2.addWeighted(img,weight,prof.gray,1,0) if (isinstance(img,np.ndarray)) else prof.gray
+	new_img = cv2.addWeighted(img,alpha,prof.gray,beta,0) if (isinstance(img,np.ndarray)) else prof.gray
 
 	# and save it to the database
 	db.update_img(self.fbid,name,new_img)

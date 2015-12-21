@@ -1,3 +1,5 @@
+import pickle
+
 class User(object):
 	def __init__(self,user):
 
@@ -9,9 +11,8 @@ class User(object):
 		self.dislikes = user.get('dislikes')
 
 		# prior liked / disliked averages
-		# TODO: decode these images.
-		self.liked_img = user.get('liked_img')
-		self.disliked_img = user.get('disliked_img')
+		self.liked_img = pickle.loads(user.get('liked_img'))
+		self.disliked_img = pickle.loads(user.get('disliked_img'))
 
 	from swipe import swipe,fetch_profile
 	from auth import auth

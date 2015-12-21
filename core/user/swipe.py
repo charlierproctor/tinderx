@@ -1,7 +1,7 @@
 from ..db import Mongo
 from ..profile import Profile
 import cv2
-from ..errors import NoValidFaces, NoImageYet
+from ..errors import NoValidFaces, NoImageYet, NoProfiles
 import numpy as np
 
 # predict how a user will swipe on a given image, based on a history of swipes.
@@ -39,12 +39,12 @@ def fetch_profile(self):
 
 	# find a random user
 	res,i = db.find_random(),0
-	while (res['usr'] in arr and i < 20):
+	while (res['usr'] in arr and i < 100):
 		res,i = db.find_random(),i+1
 
 	# no luck finding a random user
-	if i == 20:
-		return False
+	if i == 100:
+		raise NoProfiles
 
 	# strip out the mongo id
 	res.pop("_id", None)

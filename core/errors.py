@@ -17,3 +17,8 @@ class NoValidFaces(AppError):
 class NoImageYet(AppError):
 	def __init__(self,img_name):
 		AppError.__init__(self,500,"No {0} yet.".format(img_name))
+
+# failed to find another random profile for this user
+class NoProfiles(AppError):
+	def __init__(self):
+		AppError.__init__(self,500,"No more profiles.")

@@ -35,11 +35,7 @@ def normalize(self):
 
 	self.best_face()
 
-	if not isinstance(self.best,np.ndarray):
-		# no valid faces
-		return False
-	else:
-		# crop the image down to just this face
-		_crop(self,*(self.best))
+	# crop the image down to just this face
+	_crop(self,*(self.best))
 
 

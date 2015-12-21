@@ -1,5 +1,6 @@
 import cv2, os
 import numpy as np
+from ..errors import NoValidFaces
 
 HAAR_EYES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_eye.xml"
 HAAR_FACES = os.path.dirname(__file__) + "/../../lib/opencv3/haarcascades/haarcascade_frontalface_default.xml"
@@ -57,7 +58,7 @@ def _point_in_rect(pt,rect):
 	and (pt[1] >= rect[1])
 	and (pt[1] <= rect[1] + rect[3]))
 
-# determine which faces have two eyes
+# a valid face is a face with at least ONE eye.
 def _valid_faces(self):
 
 	valids = []
@@ -69,7 +70,7 @@ def _valid_faces(self):
 			if _point_in_rect(eye,face):
 				eyes += 1
 
-		# if the face has an eye, keep it
+		# if the face has at least one eye, keep it
 		if eyes >= 1:
 			valids.append(face)
 
@@ -82,3 +83,6 @@ def best_face(self):
 
 	self.best = max(valids,key=lambda face: (face[2]**2 + face[3]**2)**0.5) if len(valids) > 0 else None
 	print "Best: ", self.best
+
+	if not isinstance(self.best,np.ndarray):
+		raise NoValidFaces

@@ -11,7 +11,7 @@ import string,requests,itertools,sys,os
 
 # check usage
 if len(sys.argv) < 2:
-	sys.stderr.write("USAGE: python scrape.py USERNAME_LENGTH\n")
+	sys.stderr.write("USAGE: python utils.scrape USERNAME_LENGTH\n")
 	sys.exit(os.EX_USAGE)
 
 TINDER_ROOT = 'https://www.gotinder.com/@'

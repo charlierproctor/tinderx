@@ -56,6 +56,7 @@ def swipe(self,profile,direction):
 	db = Mongo()
 
 	# like / dislike the profile accordingly
+	# TODO: only append to likes / dislikes if we can detect a VALID FACE
 	if direction == 'left':
 		res = db.dislike_user(self.fbid,profile.get('usr'))
 	else:

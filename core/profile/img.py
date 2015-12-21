@@ -20,6 +20,13 @@ def _crop(self,x,y,w,h):
 	self.img = self.img[x:x+w,y:y+h]
 	self.gray = self.gray[x:x+w,y:y+h]
 
+IMG_SIZE = (100,100)
+
+# resize the image (and the grayscale)
+def _resize(self,w,h):
+	self.gray = cv2.resize(self.gray,(w,h))
+	self.img = cv2.resize(self.img,(w,h))
+
 def normalize(self):
 
 	# download image, create the grayscale
@@ -33,9 +40,12 @@ def normalize(self):
 	self.detect_eyes()
 	self.calculate_pupils()
 
+	# determine the best face
 	self.best_face()
 
-	# crop the image down to just this face
+	# crop the image down to just this face. then resize it to IMG_SIZE
 	_crop(self,*(self.best))
+	_resize(self,*IMG_SIZE)
+
 
 

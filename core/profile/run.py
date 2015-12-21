@@ -1,5 +1,6 @@
 from . import Profile
 from .. import db
+from .. import errors
 import sys,cv2
 
 # show the image (for 1/2 second)
@@ -17,15 +18,15 @@ if __name__ == '__main__':
 	# iterate through the profiles
 	for profile in profiles:
 
-		# create the profile and download the image
-		prof = Profile(profile)
-		prof.download_img()
-		prof.create_gray()
-		
-		# detecting faces, eyes
-		prof.detect_faces(draw=True)
-		prof.detect_eyes(draw=True)
-		prof.calculate_pupils(draw=True)
+		try:
+			# create the profile and download / normalize the image
+			prof = Profile(profile)
+			prof.normalize()
 
-		# and display the image
-		_show_img(prof.img,prof.name)
+			# show the image
+			_show_img(prof.img,prof.name)
+		except errors.NoValidFaces, e:
+			# no valid faces detected.
+			print e
+
+		

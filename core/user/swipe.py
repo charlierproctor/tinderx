@@ -36,7 +36,12 @@ def swipe(self,profile,direction):
 	prof = Profile(profile)
 	prof.normalize()
 
-	# strip out the mongo id
+	name = 'liked_img' if direction == 'right' else 'disliked_img'
+	db.update_img(self.fbid,name,prof.gray)
+
+	# strip out the mongo id and the two images.
 	res.pop("_id", None)
+	res.pop("liked_img", None)
+	res.pop("disliked_img", None)
 
 	return res

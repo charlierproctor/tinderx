@@ -1,3 +1,5 @@
+import pickle,bson
+
 # load users collection from mongodb
 def _collection(self):
 	return self.db.users
@@ -25,3 +27,16 @@ def dislike_user(self,from_fbid,to_usr):
 				"dislikes": to_usr
 			}
 		})
+
+# update the img with name *img_name* for the user with the given fbid
+def update_img(self,fbid,img_name,img):
+	return _collection(self).update_one(
+			{'fbid':fbid},
+			{
+				'$set': {
+					img_name: bson.binary.Binary(
+						pickle.dumps(img,protocol=bson.binary.OLD_BINARY_SUBTYPE)
+					)
+				}
+			}
+		)

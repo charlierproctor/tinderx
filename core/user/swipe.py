@@ -27,6 +27,13 @@ def _predict(self,img):
 	# and make the prediction
 	return 'like' if norm_liked < norm_disliked else 'dislike'
 
+# return the statistics for this user
+def stats(self):
+	return {
+		'likes': len(self.likes), 
+		'dislikes': len(self.dislikes)
+	}
+
 def fetch_profile(self):
 	
 	print "*"*20, "FETCH NEXT PROFILE", "*"*20

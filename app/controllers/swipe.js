@@ -34,6 +34,7 @@ angular.module('tinderX.swipe', ['ui.router'])
 	var updateProfile = function(data){
 		$scope.random = Math.floor((Math.random() * 1000))
 		$scope.user = data.next
+		$scope.stats = data.stats
 
 		// calculate the errors
 		$scope.errors.api = false

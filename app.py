@@ -54,7 +54,7 @@ def login(**kwargs):
 @app.route('/fetch')
 def fetch(**kwargs):
 	# call user.fetch_profile()
-	return jsonify(next=g.user.fetch_profile(),**kwargs) if g.user else abort(403)
+	return jsonify(next=g.user.fetch_profile(),stats=g.user.stats(),**kwargs) if g.user else abort(403)
 
 # POST /swipe: allow a user to swipe left / right on a candidate
 @app.route('/swipe', methods=['POST'])
@@ -62,8 +62,9 @@ def swipe(**kwargs):
 	# call user.swipe() with the request body. call fetch to return the next candidate
 	return fetch(status=g.user.swipe(**(request.get_json())),**kwargs) if g.user else abort(403)
 		
+# GET /img/<name>: download liked.jpg or disliked.jpg for this user
 @app.route('/img/<name>', methods=['GET'])
-def get_image(name,**kwards):
+def get_image(name,**kwargs):
 	if not g.user:
 		abort(403)
 

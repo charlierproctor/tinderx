@@ -1,8 +1,23 @@
 # tinderX
 
+*This file is formatted in Markdown. I recommended either viewing it in an appropriate editor or opening the PDF version, which can be found in README.pdf.*
+
+This project is hosted on GitHub, [https://github.com/charlierproctor/tinderx](https://github.com/charlierproctor/tinderx), and is running at [http://tinderx.charlieproctor.com](http://tinderx.charlieproctor.com).
+
 ## Overview
 
-tinderX is built with a Flask backend, which principally lives in `tinderx.py`.
+tinderX is an application built to learn your preferences for Tinder profiles. The core of the application lies in a series of Python modules (in the `core/` folder). These modules are made available through an API, written in Flask. Finally, there's a simple web interface, written in Angular, where users can interact with the algorithm.
+
+To try it out, visit [http://tinderx.charlieproctor.com](http://tinderx.charlieproctor.com). See **Usage** for detailed instructions.
+
+Here's how it works: tinderX observes as you like / dislike various Tinder profiles. As you do so, it constructs an average liked / disliked face... think of this as your "type". 
+
+After you have liked / disliked at least one profile each, it will start to make predictions. If the candidate's face is closer to average liked face, the algorithm will predict a like. If the candidate's face is closer to the average disliked face, the agorithm will predict a dislike. 
+
+See the section on **Image Processing** for a detailed description of how the images are handled / compared.
+
+All profiles for tinderX come from the real Tinder app. I wrote a simple web scraper (`utils/scrape.py`) to sequentially guess and check short usernames... and then record the hits. For example, running `python -m utils.scrape 4` populates the database with valid Tinder usernames of `length < 4`. I then fetch usernames, ages, and profile pictures as necessary. One issue: I haven't figured out how to get the user's gender. So, for now, all genders are combined.
+
 
 ## Usage
 

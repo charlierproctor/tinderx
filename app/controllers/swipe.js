@@ -27,8 +27,12 @@ angular.module('tinderX.swipe', ['ui.router'])
 		}
 	}
 
+	// changes to $scope.random force angular to reload the image
+	$scope.random = 0
+
 	// update the display with a new profile
 	var updateProfile = function(data){
+		$scope.random = Math.floor((Math.random() * 1000))
 		$scope.user = data.next
 
 		// calculate the errors

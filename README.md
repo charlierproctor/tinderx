@@ -4,6 +4,37 @@
 
 tinderX is built with a Flask backend, which principally lives in `tinderx.py`.
 
+## Usage
+
+To use tinderX, visit the following URL:
+
+[http://tinderx.charlieproctor.com](http://tinderx.charlieproctor.com)
+
+You are welcome to sign-in with your own Facebook account or one of the following test accounts:
+
+| name | email | pwd |
+|--------|--------|--------|
+| Helen Alaakdeajacg Changsky | `muauibf_changsky_1450782672@tfbnw.net` | `tinderx` |
+| Karen Alajijcjiaade Romanson | `yqnxffb_romanson_1450782670@tfbnw.net` | `tinderx` |
+| John Alajhgbebdffb Yangescu | `zgxeqyy_yangescu_1450782668@tfbnw.net` | `tinderx` |
+| Richard Alajhfaifehgh Zamoresky	 | `qhbgchf_zamoresky_1450782673@tfbnw.net` | `tinderx` |
+
+Once you've signed in, you will be represented with a candidate on the left. First, the name, age, and an optional 'teaser'. Then a picture. And then three buttons: `Dislike`, `Like`, and `Pass`.
+
+On the right, you'll see a table of your likes / dislikes and the number of correct predictions made so far. Since you have yet to swipe on any images, no prediction will be made. You should see something like the following:
+
+![](docs/screenshots/initial.png)
+
+Now let's suppose you want to 'like' this candidate. You can swipe right on the image itself, press the `Like` button, or press the right arrow key. Same for dislike.
+
+After swiping, you should be presented with a new candidate. You statistics should update on the right. 
+
+Now, keep doing this... after you have liked and disliked at least one candidate each, the algorithm will kick in and start to make predictions. The prediction appears on the left. Correctness statistics are updated as you progress. You'll also note that average liked / disliked faces are displayed: these are the images the normalized candidate is compared against. If the candidate lies closer to the liked-average, they will be liked; if they lie close to the disliked-average, they will be disliked.
+
+Here's a screenshot of the righthand panel after a series of swipes:
+
+![](docs/screenshots/prediction.png)
+
 ## Dependencies
 
 Unfortunately as tinderX involves multiple languages and a variety of technologies, there are a number of complicated dependencies. That being said, I'll outline the highlights here. Obviously, the details are system-dependent.
@@ -48,7 +79,7 @@ To rebuild the angular frontend after any changes, just run the `gulp` command
 mod_wsgi
 apt-get install libapache2-mod-wsgi
 
-## Structure
+## Directory Structure
 
 ### Top-Level
 
@@ -77,6 +108,7 @@ apt-get install libapache2-mod-wsgi
 | `app/controllers` | the controllers: `login.js`, `swipe.js` |
 | `app/css` | the styling |
 | `app/directives` | contains the `swipeable` directive (allows you to swipe on cards) |
+| `app/index.html` | the base page |
 | `app/partials` | the HTML views: `login.html`, `swipe.html` |
 
 ### Core Package
@@ -95,3 +127,13 @@ apt-get install libapache2-mod-wsgi
 | `core/profile/detect.py` | detect faces / eyes. choose which face we should use. |
 | `core/profile/img.py` | download images, normalize them: crop, resize, etc. |
 | `core/profile/run.py` | run face detection locally, displaying the results in a pop-up window. |
+
+## Routes
+
+All routes are defined in `tinderx.py`. Most API requests of interest are made in `app/controllers/swipe.js`.
+
+- `GET /`: send down the angular application (`index.html`)
+- `POST /login`: log a user into the app
+- `GET /fetch`: fetch a single user profile
+- `POST /swipe`: allow a user to swipe left / right on a candidate
+- `GET /img/<name>`: download liked.jpg or disliked.jpg for this user

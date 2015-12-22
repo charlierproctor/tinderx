@@ -34,7 +34,7 @@
 		</div>
 
 		<!-- show prediction as applicable -->
-		<div ng-if="user.prediction">
+		<div ng-if="!errors.api && user.prediction">
 			<h1>Prediction</h1>
 			<p ng-if="user.prediction == 'like'">
 				tinderX predicts that you will <b>LIKE</b> this user.
@@ -45,13 +45,13 @@
 		</div>
 
 		<!-- no valid faces -->
-		<div ng-if="errors.noValidFaces">
+		<div ng-if="!errors.api && errors.noValidFaces">
 			<h1>No Valid Faces</h1>
 			<p>tinderX failed to detect a valid face in this image. Therefore, no prediction was made and swiping has been disabled. Pass to the next user when ready.</p>
 		</div>
 
 		<!-- no image yet -->
-		<div ng-if="errors.noImageYet">
+		<div ng-if="!errors.api && errors.noImageYet">
 			<h1>No Image Yet</h1>
 			<p ng-if="errors.noImageYet == 'liked_img'">
 				You must like at least one user before predictions will be made.
@@ -62,7 +62,7 @@
 		</div>
 
 		<!-- show the average liked / disliked image -->
-		<div ng-if="!errors.noImageYet && !errors.noValidFaces">
+		<div ng-if="!errors.api && !errors.noImageYet && !errors.noValidFaces">
 			<div class="half-width">
 				<h3>Average Disliked</h3>
 				<img ng-src="{{'/img/disliked.jpg?r=' + random}}" alt="average disliked image">	

@@ -23,14 +23,22 @@ angular.module('tinderX.swipe', ['ui.router'])
 		}
 	}
 
+	// update the display with a new profile
+	var updateProfile = function(data){
+		$scope.user = data.next
+		$scope.errors.api = false
+
+	}
+
+	// handle an api error
+	var handleError = function(data,status){
+		$scope.errors.api = data.message
+	}
+
 	// get the first user
  	$http.get('/fetch')
- 	.success(function(data) {
- 		$scope.user = data.next
- 		$scope.errors.api = false
- 	}).error(function(data,status) {
- 		$scope.errors.api = data.message
- 	})
+ 	.success(updateProfile)
+ 	.error(handleError)
 
  	// swipe left / right on $scope.user
 	$scope.swipe = function(dir){
@@ -39,11 +47,8 @@ angular.module('tinderX.swipe', ['ui.router'])
 		$http.post('/swipe',{
 			profile: $scope.user,
 			direction: dir
-		}).success(function(data){
-			$scope.user = data.next
-			$scope.errors.api = false
-		}).error(function(data,status){
-			$scope.errors.api = data.message
 		})
+		.success(updateProfile)
+		.error(handleError)
 	}
 }])

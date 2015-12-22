@@ -18,5 +18,7 @@ class User(object):
 		self.liked_img = pickle.loads(user.get('liked_img')) if user.get('liked_img') else None
 		self.disliked_img = pickle.loads(user.get('disliked_img')) if user.get('disliked_img') else None
 
-	from swipe import swipe,fetch_profile,stats
+	# import the various functions
+	from swipe import swipe
+	from fetch import fetch_profile,stats
 	from auth import auth

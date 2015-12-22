@@ -54,16 +54,30 @@ apt-get install libapache2-mod-wsgi
 
 | Directory / File | Contents |
 |-----------|----------|
-| `app/` | contains the angular application | 
+| `app/` | contains the angular application. see detail below. | 
 | `bower.json` | frontend dependencies, managed by `bower`. |
 | `config/` | app constants, sample config files for mongo, apache |
-| `core/` | contains the core of the Python application: maintain a user's account, fetch / swipe on profiles, interact with database, etc. |
+| `core/` | contains the core of the Python application: maintain a user's account, fetch / swipe on profiles, interact with database, etc. see detail below. |
+| `docs/` | my original proposal |
 | `lib/opencv3/haarcascades/` | the cascaade classifiers used for face / eye detection |
 | `package.json` | node dependencies (mainly just `gulp`) |
 | `requirements.txt` | backend (Python / Flask) dependencies |
 | `tinderx.py` | the Flask interface (defines the server) |
 | `tinderx.wsgi` | WSGI file for deploying application using Apache |
 | `utils/` | contains utilities for scraping usernames and showing images |
+| `utils/scrape.py` | scrape usernames off gotinder.com |
+| `utils/show.py` | show the liked or disliked image locally (in a pop-up window) |
+
+### Angular Application
+
+| Directory / File | Contents |
+|-----------|----------|
+| `app/app.js` | defines the application |
+| `app/bower_components/` | all the application dependencies |
+| `app/controllers` | the controllers: `login.js`, `swipe.js` |
+| `app/css` | the styling |
+| `app/directives` | contains the `swipeable` directive (allows you to swipe on cards) |
+| `app/partials` | the HTML views: `login.html`, `swipe.html` |
 
 ### Core Package
 

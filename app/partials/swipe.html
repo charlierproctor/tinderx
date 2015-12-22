@@ -26,7 +26,7 @@
 
 	<div class="half-width">
 
-		<!-- error handling -->
+		<!-- api error handling -->
 		<div ng-if="errors.api">
 			<h1>Error</h1>
 			<p>{{errors.api}}</p>
@@ -52,7 +52,6 @@
 
 		<!-- no image yet -->
 		<div ng-if="errors.noImageYet">
-
 			<h1>No Image Yet</h1>
 			<p ng-if="errors.noImageYet == 'liked_img'">
 				You must like at least one user before predictions will be made.
@@ -61,5 +60,6 @@
 				You must dislike at least one user before predictions will be made.
 			</p>
 		</div>
+		
 	</div>
 </div>

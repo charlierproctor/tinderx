@@ -33,6 +33,11 @@ def not_found(e):
 	# jsonify the message
     return jsonify(message="404 Not Found"), 404
 
+# catch opencv errors
+@app.errorhandler(cv2.error)
+def opencv_error(e):
+	return jsonify(message="OpenCV: Error processing image."), 500
+
 # error handler for all application errors. see errors.py.
 @app.errorhandler(AppError)
 def no_valid_faces(e):
@@ -62,9 +67,11 @@ def get_image(name,**kwards):
 	if not g.user:
 		abort(403)
 
-	# encode the image and send the result
+	# encode the image
 	matrix = (g.user.liked_img if name == 'liked.jpg' else g.user.disliked_img)
 	retval, img = cv2.imencode('.jpg', matrix)
+
+	# and send the response
 	return send_file(io.BytesIO(img),
                  attachment_filename=name,
                  mimetype='image/jpg')

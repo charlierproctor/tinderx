@@ -30,7 +30,7 @@
 		<div ng-if="errors.api">
 			<h1>Error</h1>
 			<p>{{errors.api}}</p>
-			<button ui-sref="login" class="pure-button pure-button-primary button-xlarge">Start over</button>
+			<button ng-click="fetch()" class="pure-button pure-button-primary button-xlarge">Pass</button>
 		</div>
 
 		<!-- show prediction as applicable -->
@@ -62,10 +62,10 @@
 		</div>
 
 		<!-- show the average liked / disliked image -->
-		<div>
+		<div ng-if="!errors.noImageYet && !errors.noValidFaces">
 			<div class="half-width">
 				<h3>Average Disliked</h3>
-				<img ng-src="{{'/img/disliked.jpg?r=' + random}}" alt="average liked image">	
+				<img ng-src="{{'/img/disliked.jpg?r=' + random}}" alt="average disliked image">	
 			</div>
 			<div class="half-width">
 				<h3>Average Liked</h3>

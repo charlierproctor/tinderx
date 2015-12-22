@@ -25,6 +25,8 @@ To use tinderX, visit the following URL:
 
 [http://tinderx.charlieproctor.com](http://tinderx.charlieproctor.com)
 
+### Login
+
 You are welcome to sign-in with your own Facebook account or one of the following test accounts:
 
 | name | email | pwd |
@@ -33,6 +35,10 @@ You are welcome to sign-in with your own Facebook account or one of the followin
 | Karen Alajijcjiaade Romanson | `yqnxffb_romanson_1450782670@tfbnw.net` | `tinderx` |
 | John Alajhgbebdffb Yangescu | `zgxeqyy_yangescu_1450782668@tfbnw.net` | `tinderx` |
 | Richard Alajhfaifehgh Zamoresky	 | `qhbgchf_zamoresky_1450782673@tfbnw.net` | `tinderx` |
+
+Swipes are indexed by Facebook ID. No other Facebok user information is recorded.
+
+### Swiping
 
 Once you've signed in, you will be presented with a candidate on the left. At the top will be the candidate's name, age, and an optional 'teaser'. Then their profile picture. Underneath the profile picture, there are three buttons: `Dislike`, `Like`, and `Pass`.
 
@@ -44,17 +50,19 @@ The `No Image Yet` message will display until you have both liked and disliked a
 
 Now let's suppose you want to 'like' this candidate. You can swipe right (click-and-drag) on the image itself, press the `Like` button, or press the right arrow key. Vice versa for dislike.
 
-After swiping, you should be presented with a new candidate. Your statistics should update on the right. 
+After swiping, you should be presented with a new candidate. Your explanation and statistics should update on the right. 
+
+### Predictions + Explanations
 
 Now, keep doing this... after you have liked and disliked at least one candidate each, the algorithm will kick in and start to make predictions. The prediction appears on the right. 
 
-Correctness statistics are updated as you progress. You'll also note that average liked / disliked faces are displayed: these are the images the candidate's face is compared against. If the candidate lies closer to the liked-average, the algorithm will predict a 'like'; if they lie close to the disliked-average, the algorithm will predict a 'dislike'.
+Correctness statistics are updated as you progress. You'll also note that average liked / disliked faces are displayed: these are the images the candidate's face is compared against. If the candidate lies closer to the liked-average, the algorithm will predict a 'like'; if they lie close to the disliked-average, the algorithm will predict a 'dislike'. A basic explanation of the algorithm and its decision is displayed along with the prediction.
 
 Here's a screenshot of the righthand panel after a series of swipes:
 
 ![](docs/screenshots/prediction.png)
 
-## Errors
+### Errors
 
 Along the way, you most likely encountered a `No Valid Faces` error. This means that the facial recognition algorithm failed to detect a valid face. In this case, your only option is to pass on the user. The profile will obviously not be factored into any of the statistics and the average images will remain unchanged. A sample of such an error is displayed here:
 

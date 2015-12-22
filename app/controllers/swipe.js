@@ -30,8 +30,12 @@ angular.module('tinderX.swipe', ['ui.router'])
 	// changes to $scope.random force angular to reload the image
 	$scope.random = 0
 
+	// not waiting for any requests
+	$scope.waiting = false
+
 	// update the display with a new profile
 	var updateProfile = function(data){
+		$scope.waiting = false
 		$scope.random = Math.floor((Math.random() * 1000))
 		$scope.user = data.next
 		$scope.stats = data.stats
@@ -51,16 +55,22 @@ angular.module('tinderX.swipe', ['ui.router'])
 
 	// handle an api error
 	var handleError = function(data,status){
+		$scope.waiting = false
 		$scope.errors.api = data.message
 	}
 
 	// fetch a user
 	$scope.fetch = function(){
 
-		// send a GET request to /fetch
-		$http.get('/fetch')
-	 	.success(updateProfile)
-	 	.error(handleError)
+		if (!$scope.waiting) {
+			// start waiting
+			$scope.waiting = true
+
+			// send a GET request to /fetch
+			$http.get('/fetch')
+		 	.success(updateProfile)
+		 	.error(handleError)
+		}
 	}
 
 	// fetch the first user
@@ -69,11 +79,17 @@ angular.module('tinderX.swipe', ['ui.router'])
  	// swipe left / right on $scope.user
 	$scope.swipe = function(dir){
 
-		// don't swipe if there aren't any valid faces
-		if ($scope.errors.noValidFaces) {
+		if ($scope.waiting) {
+			// don't do anything... we're waiting for a prior response
+		
+		} else if ($scope.errors.noValidFaces) {
+			// don't swipe if there aren't any valid faces
 			$scope.fetch()
 
 		} else {
+			// start waiting
+			$scope.waiting = true
+
 			// send a POST request to /swipe
 			$http.post('/swipe',{
 				profile: $scope.user,

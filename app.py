@@ -2,7 +2,8 @@ from core.user import User
 from core.profile import Profile
 from core.db import Mongo
 from core.errors import AppError
-from flask import Flask, request, jsonify, g, abort
+from flask import Flask, request, jsonify, g, abort, send_file
+import io, cv2
 
 # configure the app
 app = Flask(__name__, static_folder='dist',static_url_path='')
@@ -56,6 +57,17 @@ def swipe(**kwargs):
 	# call user.swipe() with the request body. call fetch to return the next candidate
 	return fetch(status=g.user.swipe(**(request.get_json())),**kwargs) if g.user else abort(403)
 		
+@app.route('/img/<name>', methods=['GET'])
+def get_image(name,**kwards):
+	if not g.user:
+		abort(403)
+
+	# encode the image and send the result
+	matrix = (g.user.liked_img if name == 'liked.jpg' else g.user.disliked_img)
+	retval, img = cv2.imencode('.jpg', matrix)
+	return send_file(io.BytesIO(img),
+                 attachment_filename=name,
+                 mimetype='image/jpg')
 
 # run the app
 if __name__ == '__main__':

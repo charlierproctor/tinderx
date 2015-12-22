@@ -31,7 +31,9 @@ def _predict(self,img):
 def stats(self):
 	return {
 		'likes': len(self.likes), 
-		'dislikes': len(self.dislikes)
+		'dislikes': len(self.dislikes), 
+		'like_correct': self.like_correct,
+		'dislike_correct': self.dislike_correct
 	}
 
 def fetch_profile(self):

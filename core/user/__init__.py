@@ -10,6 +10,10 @@ class User(object):
 		self.likes = user.get('likes') or []
 		self.dislikes = user.get('dislikes') or []
 
+		# how many predictions have been correct so far.
+		self.like_correct = user.get('like_correct')
+		self.dislike_correct = user.get('dislike_correct')
+
 		# prior liked / disliked averages
 		self.liked_img = pickle.loads(user.get('liked_img')) if user.get('liked_img') else None
 		self.disliked_img = pickle.loads(user.get('disliked_img')) if user.get('disliked_img') else None

@@ -84,14 +84,32 @@
 			<table>
 				<thead>
 					<tr>
-						<th># Dislikes</th>
-						<th># Likes</th>
+						<th>Total # Dislikes</th>
+						<th>Total # Likes</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>{{stats.dislikes}}</td>
 						<td>{{stats.likes}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- show how many people this user has liked / disliked -->
+		<div ng-if="!errors.api">
+			<table>
+				<thead>
+					<tr>
+						<th># Correct Dislike Predictions</th>
+						<th># Correct Like Predictions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{stats.dislike_correct}}</td>
+						<td>{{stats.like_correct}}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -17,6 +17,6 @@
     "main-bower-files": "^2.9.0"
   },
   "scripts": {
-    "postinstall": "gulp"
+    "postinstall": "node_modules/gulp/bin/gulp.js"
   }
 }

@@ -10,7 +10,9 @@ def find_user(self,fbid):
 
 # insert a user into the database
 def insert_user(self,user):
-	return _collection(self).insert_one(user)
+	_id = _collection(self).insert_one(user).inserted_id
+	return _collection(self).find_one({"_id": _id})
+
 
 # from likes to
 def like_user(self,from_fbid,to_usr):

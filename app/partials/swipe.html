@@ -2,27 +2,20 @@
 
 	<div class="half-width">
 
-		<!-- error handling -->
-		<div ng-show="errors.api">
-			<h1>Error</h1>
-			<p>{{errors.api}}</p>
-			<button ui-sref="login" class="pure-button pure-button-primary button-xlarge">Start over</button>
-		</div>
-
 		<!-- swiper  -->
-		<h1 ng-hide="errors.api">
+		<h1>
 			<span id="name">{{user.name}}</span>, <span id="age">{{user.age}}</span>
 		</h1>
-		<h2 ng-hide="errors.api" id="teaser">{{user.tsr}}</h2>
+		<h2 id="teaser">{{user.tsr}}</h2>
 		<div class="swiper">
 			<img class="swipeable" swipeable ng-swipe-left="swipe('left')" ng-swipe-right="swipe('right')" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
 		</div>
 
 		<!-- buttons -->
-		<div class="buttons" ng-hide="errors.api">
+		<div class="buttons">
 			<div>
-				<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('left')">Dislike</button>
-				<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('right')">Like</button>
+				<button ng-disabled="errors.noValidFaces" class="pure-button pure-button-primary button-xlarge" ng-click="swipe('left')">Dislike</button>
+				<button ng-disabled="errors.noValidFaces" class="pure-button pure-button-primary button-xlarge" ng-click="swipe('right')">Like</button>
 			</div>
 			<div>
 				<button class="pure-button pure-button-primary button-xlarge" ng-click="fetch()">Pass</button>
@@ -32,6 +25,41 @@
 	</div>
 
 	<div class="half-width">
-		right
+
+		<!-- error handling -->
+		<div ng-if="errors.api">
+			<h1>Error</h1>
+			<p>{{errors.api}}</p>
+			<button ui-sref="login" class="pure-button pure-button-primary button-xlarge">Start over</button>
+		</div>
+
+		<!-- show prediction as applicable -->
+		<div ng-if="user.prediction">
+			<h1>Prediction</h1>
+			<p ng-if="user.prediction == 'like'">
+				tinderX predicts that you will <b>LIKE</b> this user.
+			</p>
+			<p ng-if="user.prediction == 'dislike'">
+				tinderX predicts that you will <b>DISLIKE</b> this user.
+			</p>
+		</div>
+
+		<!-- no valid faces -->
+		<div ng-if="errors.noValidFaces">
+			<h1>No Valid Faces</h1>
+			<p>tinderX failed to detect a valid face in this image. Therefore, no prediction was made and swiping has been disabled. Pass to the next user when ready.</p>
+		</div>
+
+		<!-- no image yet -->
+		<div ng-if="errors.noImageYet">
+
+			<h1>No Image Yet</h1>
+			<p ng-if="errors.noImageYet == 'liked_img'">
+				You must like at least one user before predictions will be made.
+			</p>
+			<p ng-if="errors.noImageYet == 'disliked_img'">
+				You must dislike at least one user before predictions will be made.
+			</p>
+		</div>
 	</div>
 </div>

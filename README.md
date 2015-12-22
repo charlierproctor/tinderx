@@ -2,7 +2,7 @@
 
 ## Overview
 
-tinderX is built with a Flask backend, which principally lives in `app.py`.
+tinderX is built with a Flask backend, which principally lives in `tinderx.py`.
 
 ## Dependencies
 
@@ -47,3 +47,21 @@ To rebuild the angular frontend after any changes, just run the `gulp` command
 
 mod_wsgi
 apt-get install libapache2-mod-wsgi
+
+## Structure
+
+| Package | Contents |
+|-----------|----------|
+| `app/` | contains the angular application | 
+| `bower.json` | frontend dependencies, managed by `bower`. |
+| `config` | app constants, sample config files for mongo, apache |
+| `core/` | contains the core of the Python application: fetch / swipe on profiles, interact with database, etc. |
+| `core/db` | database functions |
+| `core/user` | defines the `User` class. authorize a user, fetch a profile, swipe on a profile. |
+| `core/profile` | defines the `Profile` class. detect faces, normalize images. |
+| `lib/opencv3/haarcascades` | the cascaade classifiers used for face / eye detection |
+| `package.json` | node dependencies (mainly just `gulp`) |
+| `requirements.txt` | backend (Python / Flask) dependencies |
+| `tinderx.py` | the Flask interface (defines the server) |
+| `tinderx.wsgi` | the Flask interface (defines the server) |
+| `utils` | contains utilities for scraping usernames and showing images |

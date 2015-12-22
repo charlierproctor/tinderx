@@ -81,18 +81,25 @@ def fetch_profile(self):
 	return res
 
 # swipe on a particular profile
-def swipe(self,profile,direction):
+def swipe(self,profile,direction,prediction):
 
 	print "*"*20, "PROCESS SWIPE", "*"*20
 
 	db = Mongo()
 
 	# like / dislike the profile accordingly
-	# TODO: only append to likes / dislikes if we can detect a VALID FACE
 	if direction == 'left':
 		res = db.dislike_user(self.fbid,profile.get('usr'))
+
+		# the prediction was correct
+		if prediction == 'dislike':
+			db.increment_correct(self.fbid,prediction)
 	else:
 		res = db.like_user(self.fbid,profile.get('usr'))
+
+		# the prediction was correct
+		if prediction == 'like':
+			db.increment_correct(self.fbid,prediction)
 
 	# create our profile object
 	prof = Profile(profile)

@@ -42,3 +42,11 @@ def update_img(self,fbid,img_name,img):
 				}
 			}
 		)
+
+# increment the number of correct predictions
+def increment_correct(self,fbid,name):
+	return _collection(self).find_one_and_update({"fbid": fbid},{
+		'$inc': {
+			name + "_correct": 1
+		}
+	})

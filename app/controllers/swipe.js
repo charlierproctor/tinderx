@@ -77,7 +77,8 @@ angular.module('tinderX.swipe', ['ui.router'])
 			// send a POST request to /swipe
 			$http.post('/swipe',{
 				profile: $scope.user,
-				direction: dir
+				direction: dir,
+				prediction: ($scope.user && $scope.user.prediction) || false
 			})
 			.success(updateProfile)
 			.error(handleError)

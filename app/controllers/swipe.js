@@ -13,6 +13,10 @@ angular.module('tinderX.swipe', ['ui.router'])
 .controller('SwipeCtrl', ['$scope', '$http', '$window', function($scope, $http, $window){
 
 	$scope.errors = {}
+	$scope.swipeable = false
+
+	// fetch the first user
+	$scope.fetch()
 
 	// use left / right arrows to swipe
 	$window.onkeydown = function(){
@@ -28,6 +32,11 @@ angular.module('tinderX.swipe', ['ui.router'])
 		$scope.user = data.next
 		$scope.errors.api = false
 
+		// can we swipe on this user?
+		$scope.swipeable = !($scope.user.error && ($scope.user.error.type == "NoValidFaces"))
+
+		// have we made a prediction? (maybe no liked_img or disliked_img)
+		$scope.prediction = $scope.user.prediction || false
 	}
 
 	// handle an api error
@@ -35,10 +44,14 @@ angular.module('tinderX.swipe', ['ui.router'])
 		$scope.errors.api = data.message
 	}
 
-	// get the first user
- 	$http.get('/fetch')
- 	.success(updateProfile)
- 	.error(handleError)
+	// fetch a user
+	$scope.fetch = function(){
+
+		// send a GET request to /fetch
+		$http.get('/fetch')
+	 	.success(updateProfile)
+	 	.error(handleError)
+	}
 
  	// swipe left / right on $scope.user
 	$scope.swipe = function(dir){

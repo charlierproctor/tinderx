@@ -50,18 +50,34 @@ apt-get install libapache2-mod-wsgi
 
 ## Structure
 
-| Package | Contents |
+### Top-Level
+
+| Directory / File | Contents |
 |-----------|----------|
 | `app/` | contains the angular application | 
 | `bower.json` | frontend dependencies, managed by `bower`. |
-| `config` | app constants, sample config files for mongo, apache |
-| `core/` | contains the core of the Python application: fetch / swipe on profiles, interact with database, etc. |
-| `core/db` | database functions |
-| `core/user` | defines the `User` class. authorize a user, fetch a profile, swipe on a profile. |
-| `core/profile` | defines the `Profile` class. detect faces, normalize images. |
-| `lib/opencv3/haarcascades` | the cascaade classifiers used for face / eye detection |
+| `config/` | app constants, sample config files for mongo, apache |
+| `core/` | contains the core of the Python application: maintain a user's account, fetch / swipe on profiles, interact with database, etc. |
+| `lib/opencv3/haarcascades/` | the cascaade classifiers used for face / eye detection |
 | `package.json` | node dependencies (mainly just `gulp`) |
 | `requirements.txt` | backend (Python / Flask) dependencies |
 | `tinderx.py` | the Flask interface (defines the server) |
-| `tinderx.wsgi` | the Flask interface (defines the server) |
-| `utils` | contains utilities for scraping usernames and showing images |
+| `tinderx.wsgi` | WSGI file for deploying application using Apache |
+| `utils/` | contains utilities for scraping usernames and showing images |
+
+### Core Package
+
+| Directory / File | Contents |
+|-----------|----------|
+| `core/errors` | defines a series of app-wide errors |
+| `core/db/` | a package of database functions |
+| `core/db/profiles.py` | functions to interact with the `tinder_profiles` document in MongoDB |
+| `core/db/users.py` | functions to interact with the `users` document in MongoDB |
+| `core/user/` | defines the `User` class. authorize a user, fetch a profile, swipe on a profile. |
+| `core/user/auth.py` | authorize a user (verify their facebook tokens) |
+| `core/user/fetch.py` | fetch the next profile, predict whether the user will like it |
+| `core/user/swipe.py` | swipe on a profile, updating the liked or disliked average image |
+| `core/profile/` | defines the `Profile` class. detect faces, normalize images. |
+| `core/profile/detect.py` | detect faces / eyes. choose which face we should use. |
+| `core/profile/img.py` | download images, normalize them: crop, resize, etc. |
+| `core/profile/run.py` | run face detection locally, displaying the results in a pop-up window. |

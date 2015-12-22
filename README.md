@@ -54,53 +54,45 @@ Here's a screenshot of the righthand panel after a series of swipes:
 
 ![](docs/screenshots/prediction.png)
 
+## Errors
+
 Along the way, you most likely encountered a `No Valid Faces` error. This means that the facial recognition algorithm failed to detect a valid face. In this case, your only option is to pass on the user. The profile will obviously not be factored into any of the statistics and the average images will remain unchanged. A sample of such an error is displayed here:
 
 ![](docs/screenshots/novalidfaces.png)
 
-## Dependencies
+You may also run into the occasional OpenCV error... this could be from any number of image processing related issues! Just try reloading the page or passing on to the next user.
 
-Unfortunately as tinderX involves multiple languages and a variety of technologies, there are a number of complicated dependencies. That being said, I'll outline the highlights here. Obviously, the details are system-dependent.
+## Image Processing
 
-First and foremost, you must have some form of **Python 2.7**.
+The core image processing happens in the `core/profiles` module. There are two main actions:
 
-### mongodb 
+1. update the average image to incorporate a new swipe; happens in `core/user/swipe.py`.
+2. compare an image to an average, in order to make a prediction; happens in `core/user/fetch.py`
 
-I use MongoDB to store information on the users and the profiles. Installation instructions can be found here:
+In both cases, we only care about the faces. In order to extract the faces, I take the following approach:
 
-[https://docs.mongodb.org/v3.0/installation/](https://docs.mongodb.org/v3.0/installation/)
+1. download the image from `http://images.gotinder.com/` convert it to grayscale
+2. detect faces using the `haarcascade_frontalface_default.xml` cascaade classifier
+3. detect eyes using the `haarcascade_eye.xml` cascaade classifier
+4. calculate the pupils (the centers of the eyes)
+5. calculate the best face: **the largest face, with at least one eye detected in it**
+6. crop the image to be just that face
+7. resize the image to be 100x100
 
-### opencv3
+Now, in `core/user/swipe.py`, to incorporate the face into the average, I use `cv2.addWeighted` with the appropriate weights. In `core/user/fetch.py`, I use a combination of `cv2.subtract` and `cv2.norm` to determine the difference between two images.
 
-To process the images (detect faces, crop, resize, etc.), I use **OpenCV 3**. This is a nightmare to install... if you're on a Mac, [brew](http://brew.sh/) works. Otherwise, here are instructions for linux installation from source:
+I'll quickly remark that there is **A LOT** of room for improvement here: especially when it comes to the face detection...
 
-[http://docs.opencv.org/3.0-beta/doc/tutorials/introduction/linux_install/linux_install.html](http://docs.opencv.org/3.0-beta/doc/tutorials/introduction/linux_install/linux_install.html)
+## Routes
 
-### pip
+Flask defines the following routes in `tinderx.py`, which act as the bridge between the core packages and the Angular frontend. Most API requests of interest are made in `app/controllers/swipe.js` (in Angular).
 
-There are a series of pip packages, as listed in `requirements.txt`, that must be installed:
+- `GET /`: send down the angular application (`index.html`)
+- `POST /login`: log a user into the app
+- `GET /fetch`: fetch a single user profile
+- `POST /swipe`: allow a user to swipe left / right on a candidate
+- `GET /img/<name>`: download liked.jpg or disliked.jpg for this user
 
-```
-pip install -r requirements.txt
-```
-
-### gulp
-
-I use `gulp` to manage the build process of the angular frontend. 
-
-, so it's best to install the node modules:
-
-```
-npm install
-```
-
-To rebuild the angular frontend after any changes, just run the `gulp` command
-
-
-### apache
-
-mod_wsgi
-apt-get install libapache2-mod-wsgi
 
 ## Directory Structure
 
@@ -151,12 +143,72 @@ apt-get install libapache2-mod-wsgi
 | `core/profile/img.py` | download images, normalize them: crop, resize, etc. |
 | `core/profile/run.py` | run face detection locally, displaying the results in a pop-up window. |
 
-## Routes
+## Installation
 
-All routes are defined in `tinderx.py`. Most API requests of interest are made in `app/controllers/swipe.js`.
+Unfortunately, as tinderX involves multiple languages and a variety of technologies, there are a number of complicated dependencies. That being said, I'll outline the highlights here. Obviously, the details are system-dependent.
 
-- `GET /`: send down the angular application (`index.html`)
-- `POST /login`: log a user into the app
-- `GET /fetch`: fetch a single user profile
-- `POST /swipe`: allow a user to swipe left / right on a candidate
-- `GET /img/<name>`: download liked.jpg or disliked.jpg for this user
+First and foremost, you must have some form of **Python 2.7**.
+
+### opencv3
+
+To process the images (detect faces, crop, resize, etc.), I use **OpenCV 3**. This is a nightmare to install... if you're on a Mac, [brew](http://brew.sh/) works. Otherwise, here are instructions for linux installation from source:
+
+[http://docs.opencv.org/3.0-beta/doc/tutorials/introduction/linux_install/linux_install.html](http://docs.opencv.org/3.0-beta/doc/tutorials/introduction/linux_install/linux_install.html)
+
+You have to make sure to install the appropriate Python bindings.
+
+### pip
+
+There are a series of Python packages, as listed in `requirements.txt`, that must be installed:
+
+```
+pip install -r requirements.txt
+```
+
+These include:
+
+```
+facepy==1.0.7				## Facebook SDK: used to validate authentication tokens
+Flask==0.10.1				## Flask itself
+lxml==3.5.0				## parses the HTML responses from Tinder in scrape.py
+numpy==1.10.1				## helps process the images (all opencv images are multidimensional matrices)
+pymongo==3.1.1			## mongodb driver
+requests==2.8.1			## make HTTP requests (used in scrape.py)
+```
+
+### mongodb
+
+I use MongoDB to store information on the users and the profiles. I'm using `v3.0.8`, but anything close should work too. Installation instructions can be found here:
+
+[https://docs.mongodb.org/v3.0/installation/](https://docs.mongodb.org/v3.0/installation/)
+
+A sample `mongod.conf` is located in the `config/` folder.
+
+### nodejs
+
+I'm using `NodeJS v4.2.3`, but anything thereabouts should work too. Node is just used for `gulp`, as described in the next section.
+
+### gulp
+
+I use `gulp` to manage the build process of the angular frontend. As you can see in `index.html`, all js / css is concatenated down into `lib.css`, `app.css`, `lib.js`, and `app.js`. Gulp handles this process.
+
+To install gulp, 
+
+```
+npm install
+```
+
+To rebuild the angular frontend after any changes, just run the `gulp` command. `gulp watch` works too.
+
+
+### apache
+
+In production, I've been using Apache, with the `mod_wsgi` library installed. A sample apache config file can be found in `config/001-tinderx.conf` and a sample wsgi file in `tinderx.wsgi`.
+
+### run
+
+If on a local machine, you can also run the app directly:
+
+```
+python tinderx.py
+```

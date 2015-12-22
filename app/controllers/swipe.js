@@ -64,12 +64,18 @@ angular.module('tinderX.swipe', ['ui.router'])
  	// swipe left / right on $scope.user
 	$scope.swipe = function(dir){
 
-		// send a POST request to /swipe
-		$http.post('/swipe',{
-			profile: $scope.user,
-			direction: dir
-		})
-		.success(updateProfile)
-		.error(handleError)
+		// don't swipe if there aren't any valid faces
+		if ($scope.errors.noValidFaces) {
+			$scope.fetch()
+
+		} else {
+			// send a POST request to /swipe
+			$http.post('/swipe',{
+				profile: $scope.user,
+				direction: dir
+			})
+			.success(updateProfile)
+			.error(handleError)
+		}
 	}
 }])

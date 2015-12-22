@@ -3,7 +3,6 @@
 angular.module('tinderX.swipeable',[])
 .directive('swipeable', ['$swipe',function($swipe){
 	return {
-		restrict: 'A',
 		link: function(scope,elem,attrs){
 
 			elem.css({

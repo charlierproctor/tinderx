@@ -8,7 +8,7 @@
 		</h1>
 		<h2 id="teaser">{{user.tsr}}</h2>
 		<div class="swiper">
-			<img class="swipeable" swipeable ng-swipe-left="swipe('left')" ng-swipe-right="swipe('right')" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
+			<img swipeable ng-swipe-left="swipe('left')" ng-swipe-right="swipe('right')" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
 		</div>
 
 		<!-- buttons -->
@@ -60,6 +60,6 @@
 				You must dislike at least one user before predictions will be made.
 			</p>
 		</div>
-		
+
 	</div>
 </div>

@@ -1,33 +1,37 @@
-<div id="swipe">
+<div id="swipe" class="container">
 
-	<div class="pure-g">
-		<div class="pure-u-1" ng-show="errors.api">
+	<div class="half-width">
+
+		<!-- error handling -->
+		<div ng-show="errors.api">
 			<h1>Error</h1>
 			<p>{{errors.api}}</p>
 			<button ui-sref="login" class="pure-button pure-button-primary button-xlarge">Start over</button>
 		</div>
-		<h1 class="pure-u-1" ng-hide="errors.api">
+
+		<!-- swiper  -->
+		<h1 ng-hide="errors.api">
 			<span id="name">{{user.name}}</span>, <span id="age">{{user.age}}</span>
 		</h1>
-		<h2 class="pure-u-1" ng-hide="errors.api" id="teaser">{{user.tsr}}</h2>
+		<h2 ng-hide="errors.api" id="teaser">{{user.tsr}}</h2>
+		<div class="swiper">
+			<img class="swipeable" swipeable ng-swipe-left="swipe('left')" ng-swipe-right="swipe('right')" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
+		</div>
+
+		<!-- buttons -->
+		<div class="buttons" ng-hide="errors.api">
+			<div>
+				<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('left')">Dislike</button>
+				<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('right')">Like</button>
+			</div>
+			<div>
+				<button class="pure-button pure-button-primary button-xlarge" ng-click="fetch()">Pass</button>
+			</div>
+		</div>
+
 	</div>
 
-	<div class="pure-g" ng-hide="errors.api">
-		<div class="icon pure-u-1-4">
-			<i ng-click="swipe('left')" class="fa fa-arrow-left"></i>
-		</div>
-		<div class="pure-u-1-2 swiper">
-			<img class="pure-img swipeable" swipeable ng-swipe-left="swipe('left')" ng-swipe-right="swipe('right')" ng-src="{{user.img ? ('http://images.gotinder.com' + user.img) : ''}}">
-		</div>
-		<div class="icon pure-u-1-4">
-			<i ng-click="swipe('right')" class="fa fa-arrow-right"></i>
-		</div>
-	</div>
-
-	<div class="pure-g buttons" ng-hide="errors.api">
-		<div class="pure-u-1">
-			<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('left')">Dislike</button>
-			<button class="pure-button pure-button-primary button-xlarge" ng-click="swipe('right')">Like</button>
-		</div>
+	<div class="half-width">
+		right
 	</div>
 </div>

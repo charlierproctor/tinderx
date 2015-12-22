@@ -63,16 +63,23 @@
 
 		<!-- show the average liked / disliked image -->
 		<div ng-if="!errors.api && !errors.noImageYet && !errors.noValidFaces">
-			<div class="half-width">
-				<h3>Average Disliked</h3>
-				<img ng-src="{{'/img/disliked.jpg?r=' + random}}" alt="average disliked image">	
-			</div>
-			<div class="half-width">
-				<h3>Average Liked</h3>
-				<img ng-src="{{'/img/liked.jpg?r=' + random}}" alt="average liked image">
-			</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Average Disliked</th>
+						<th>Average Liked</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><img ng-src="{{'/img/disliked.jpg?r=' + random}}" alt="average disliked image">	</td>
+						<td><img ng-src="{{'/img/liked.jpg?r=' + random}}" alt="average liked image"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
+		<!-- show how many people this user has liked / disliked -->
 		<div ng-if="!errors.api">
 			<table>
 				<thead>

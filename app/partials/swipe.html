@@ -36,11 +36,8 @@
 		<!-- show prediction as applicable -->
 		<div ng-if="!errors.api && user.prediction">
 			<h1>Prediction</h1>
-			<p ng-if="user.prediction == 'like'">
-				tinderX predicts that you will <b>LIKE</b> this user.
-			</p>
-			<p ng-if="user.prediction == 'dislike'">
-				tinderX predicts that you will <b>DISLIKE</b> this user.
+			<p>
+				tinderX predicts that you will <b>{{user.prediction == 'like' ? 'LIKE' : 'DISLIKE'}}</b> this profile, because the normalized grayscale representation of this candidate's face is closest to the average {{user.prediction == 'like' ? 'liked' : 'disliked'}} face.
 			</p>
 		</div>
 
@@ -77,6 +74,9 @@
 					</tr>
 				</tbody>
 			</table>
+			<p>
+				<em>The average liked / disliked faces come from your previous swipes.</em>
+			</p>
 		</div>
 
 		<!-- show how many people this user has liked / disliked -->
@@ -84,8 +84,8 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Total # Dislikes</th>
-						<th>Total # Likes</th>
+						<th># Swipes (Dislike)</th>
+						<th># Swipes (Like)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -102,8 +102,8 @@
 			<table>
 				<thead>
 					<tr>
-						<th># Correct Dislike Predictions</th>
-						<th># Correct Like Predictions</th>
+						<th># Correct Predictions (Dislike)</th>
+						<th># Correct Predictions (Like)</th>
 					</tr>
 				</thead>
 				<tbody>
